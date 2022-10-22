@@ -15,7 +15,7 @@ The project is an imitation of an electronic journal. Its purpose is to display 
 ## Technologies
 - HTML5, CSS, JavaScript (+AJAX)
 - PHP
-- PostgreSQL
+- PostgreSQL (+PDO)
 <br><br>
 
 ## Features
