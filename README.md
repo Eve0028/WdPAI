@@ -20,7 +20,7 @@ The project is an imitation of an electronic journal. Its purpose is to display 
 
 ## Features
 #### To do
-- View / add student grades
+- Viewing / adding student grades
 - Displaying / marking the student's presence in individual lessons
 - Displaying / adding tests on specific days for the student
 - Viewing / adding / changing a student's timetable
