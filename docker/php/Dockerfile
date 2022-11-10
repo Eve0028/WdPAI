@@ -1,6 +1,9 @@
-FROM php:8.0.24-fpm-alpine3.16
+FROM php:8.0-fpm
 
 # Copy the application code
 COPY . /app
 
-VOLUME ["/app"]
+RUN pecl install xdebug-3.1.6 \
+    && docker-php-ext-enable xdebug
+
+# VOLUME ["/app"]
