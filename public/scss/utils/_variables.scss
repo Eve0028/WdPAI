@@ -1,0 +1,31 @@
+// bg-colors
+$primary-color: rgba(54, 176, 60, 1);
+$primary-hover-color: #37b93d;
+$tiles-color: (
+  group-one: rgba(54, 176, 60, 0.9),
+  group-two: rgba(133, 189, 180, 1),
+  group-three: rgba(255, 204, 92, 1),
+  group-four: rgba(255, 111, 105, 1)
+);
+
+// fonts-family
+$logo-font: Amita;
+$header-font: Lato, sans-serif;
+$content-font: Lato, sans-serif;
+
+// fonts-colors
+$content-font-color: #111;
+$font-input-color: #666;
+$font-input-hover-color: #428c42;
+
+// inputs
+
+// img
+$background-img: url("../img/bg.png");
+
+// for media-query
+$breakpoints: (
+  small: 767px,
+  medium: 992px,
+  large: 1200px
+);

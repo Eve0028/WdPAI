@@ -1,0 +1,65 @@
+@charset "utf-8";
+
+@use '../utils/variables' as v;
+@use '../utils/mixins' as mix;
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: v.$background-img;
+  background-size: 100%;
+  font-size: 16px;
+  font-family: v.$content-font;
+  color: v.$content-font-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: white;
+  box-shadow: 0 0 35px 2px rgba(0, 0, 0, 0.25);
+  padding: 1em 2em 2em;
+}
+
+.logo {
+  font-family: v.$logo-font;
+  font-size: 3em;
+  _font-weight: 10;
+  text-align: center;
+  letter-spacing: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  &::first-letter {
+    color: v.$primary-color;
+  }
+}
+
+form {
+  &.login {
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  input {
+    @include mix.inputs_style;
+
+  }
+
+  button {
+    @include mix.buttons_style;
+  }
+}
+
+a{
+  @include mix.links_style;
+}
+
+.sign-up-container{
+  text-align: center;
+  padding-top: 0.5em;
+}

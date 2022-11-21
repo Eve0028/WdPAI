@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <title>eDiary</title>
     <meta name="description" content="login page">
-    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin-ext" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Amita&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/public/scss/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin-ext" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Amita&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
     </header>
     <main class="login-container">
         <form class="login" action="" method="POST">
-            <input name="email" type="text" placeholder="email address">
+            <input name="email" type="email" placeholder="email address">
             <input name="password" type="password" placeholder="password">
             <button type="submit">Login</button>
         </form>

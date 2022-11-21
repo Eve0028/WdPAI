@@ -1,0 +1,118 @@
+/*
+.element {
+  color: hotpink;
+
+  @include respond-to(small) {
+    color: tomato;
+  }
+}
+ */
+/*
+.element {
+  color: hotpink;
+
+  @include respond-to(small) {
+    color: tomato;
+  }
+}
+ */
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../img/bg.png");
+  background-size: 100%;
+  font-size: 16px;
+  font-family: Lato, sans-serif;
+  color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: white;
+  box-shadow: 0 0 35px 2px rgba(0, 0, 0, 0.25);
+  padding: 1em 2em 2em;
+}
+
+.logo {
+  font-family: Amita;
+  font-size: 3em;
+  _font-weight: 10;
+  text-align: center;
+  letter-spacing: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.logo::first-letter {
+  color: rgb(54, 176, 60);
+}
+
+form.login {
+  display: flex;
+  flex-flow: column wrap;
+}
+form input {
+  background-color: #efefef;
+  color: #666;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1.2em;
+  padding: 0.6em;
+  box-sizing: border-box;
+  outline: none;
+  margin-top: 0.4em;
+  margin-bottom: 0.6em;
+}
+form input:focus {
+  -webkit-box-shadow: 0 0 10px 2px rgba(204, 204, 204, 0.9);
+  -moz-box-shadow: 0 0 10px 2px rgba(204, 204, 204, 0.9);
+  box-shadow: 0 0 10px 2px rgba(204, 204, 204, 0.9);
+  border: 2px solid #a5cda5;
+  background-color: #e9f3e9;
+  color: #428c42;
+}
+form button {
+  background-color: rgb(54, 176, 60);
+  font-size: 1.2em;
+  color: white;
+  padding: 0.7em;
+  margin-top: 0.6em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  outline: none;
+}
+form button:focus {
+  -webkit-box-shadow: 0 0 15px 5px rgba(204, 204, 204, 0.9);
+  -moz-box-shadow: 0 0 15px 5px rgba(204, 204, 204, 0.9);
+  box-shadow: 0 0 15px 5px rgba(204, 204, 204, 0.9);
+}
+form button:hover {
+  background-color: #37b93d;
+}
+
+a:link {
+  color: grey;
+  text-decoration: none;
+}
+a:visited {
+  color: grey;
+}
+a:active {
+  color: grey;
+}
+a:hover {
+  color: rgb(54, 176, 60);
+  text-decoration: underline;
+}
+
+.sign-up-container {
+  text-align: center;
+  padding-top: 0.5em;
+}
+
+/*# sourceMappingURL=main.css.map */
