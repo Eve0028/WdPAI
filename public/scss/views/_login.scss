@@ -2,64 +2,46 @@
 
 @use '../utils/variables' as v;
 @use '../utils/mixins' as mix;
+@use '../components/buttons';
+@use '../components/inputs';
+@use '../base/body';
+@use "../components/container";
 
-body {
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: v.$background-img;
-  background-size: 100%;
-  font-size: 16px;
-  font-family: v.$content-font;
-  color: v.$content-font-color;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  background-color: white;
-  box-shadow: 0 0 35px 2px rgba(0, 0, 0, 0.25);
-  padding: 1em 2em 2em;
-}
 
 .logo {
   font-family: v.$logo-font;
   font-size: 3em;
-  _font-weight: 10;
+  font-weight: 600;
   text-align: center;
   letter-spacing: 0;
-  margin: 0;
-  padding: 0;
-}
+  padding-bottom: 0.3em;
 
-.logo {
   &::first-letter {
     color: v.$primary-color;
   }
 }
 
 form {
-  &.login {
-    display: flex;
-    flex-flow: column wrap;
-  }
+  display: flex;
+  flex-flow: column wrap;
 
   input {
-    @include mix.inputs_style;
-
+    margin-top: 0.4em;
+    margin-bottom: 0.6em;
   }
 
   button {
-    @include mix.buttons_style;
+    padding: 0.7em;
+    margin-top: 0.4em;
   }
 }
 
-a{
+a {
   @include mix.links_style;
 }
 
-.sign-up-container{
+a.sign-up {
+  display: block;
   text-align: center;
-  padding-top: 0.5em;
+  padding-top: 0.6em;
 }

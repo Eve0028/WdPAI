@@ -1,0 +1,24 @@
+@use '../utils/variables' as v;
+@use '../utils/mixins' as mix;
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: v.$background-img;
+  background-size: 100%;
+  font-size: 16px;
+  font-family: v.$content-font;
+  color: v.$content-font-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > *{
+    max-height: 100%;
+  }
+
+  @include mix.respond-to(large) {
+    width: auto;
+    height: auto;
+  }
+}
