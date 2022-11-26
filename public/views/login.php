@@ -21,8 +21,6 @@
             <button type="submit">Login</button>
         </form>
     </main>
-    <div class="sign-up-container">
-        <a href="signup.php" class="sign-up">Sign up</a>
-    </div>
+    <a href="signup.php" class="sign-up">Sign up</a>
 </div>
 </body>
