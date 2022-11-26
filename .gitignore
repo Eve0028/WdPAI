@@ -1,1 +1,9 @@
 .idea
+/vendor/
+/db-data/
+docker/php/conf.d/error_reporting.ini
+docker/php/conf.d/xdebug.ini
+
+.sass-cache/
+*.css.map
+*.scss.map

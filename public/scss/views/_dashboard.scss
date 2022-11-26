@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+@use '../utils/variables' as v;
+@use '../utils/mixins' as mix;
+@use '../base/body';
+
+
+.sign-out{
+  position: fixed;
+  top: 1vw;
+  right: 1.5vw;
+  text-align: right;
+  width: 100%;
+  font-size: 1.2em;
+}
+
+@each $tile, $color in v.$tiles-color {
+  .#{$tile} {
+    background-color: $color;
+  }
+}
+
+
+@supports (display: grid) {
+  .container-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(16em, 1fr));
+    gap: 3.5rem 4em;
+
+    @include mix.respond-to(medium) {
+      grid-template-columns: repeat(2, minmax(16em, 1fr));
+    }
+
+    @include mix.respond-to(small) {
+      grid-template-columns: repeat(1, minmax(16em, 1fr));
+    }
+  }
+}
+
+.container-tiles {
+  margin: 10vh;
+
+  > a {
+    height: 14rem;
+    width: 20rem;
+    text-align: center;
+    display: block;
+    padding: 2em;
+    filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.20));
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    h3 {
+      color: white;
+      font-size: 1.2em;
+      border-bottom: dashed 1px white;
+      margin-bottom: 1em;
+      padding-bottom: 0.4em;
+    }
+  }
+
+  header {
+    justify-self: center;
+    align-self: center;
+  }
+}
+
+.logo-container {
+  text-align: center;
+}
+
+.tile > img {
+  width: 7em;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
+}
+

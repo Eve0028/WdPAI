@@ -1,0 +1,49 @@
+@use 'variables' as v;
+
+// for media-query
+/// Responsive breakpoint manager
+/// @access public
+/// @param {String} $breakpoint - Breakpoint
+/// @requires $breakpoints
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key(v.$breakpoints, $breakpoint) {
+    @media (max-width: #{map-get(v.$breakpoints, $breakpoint)}) {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+/*
+.element {
+  color: hotpink;
+
+  @include respond-to(small) {
+    color: tomato;
+  }
+}
+ */
+
+// inputs
+
+
+@mixin links_style {
+  &:link {
+    color: grey;
+    text-decoration: none;
+  }
+  &:visited {
+    color: grey;
+  }
+  &:active {
+    color: grey;
+  }
+  &:hover {
+    color: v.$primary-color;
+    text-decoration: underline;
+  }
+}
+

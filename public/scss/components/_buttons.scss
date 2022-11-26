@@ -1,0 +1,22 @@
+@use '../utils/variables' as v;
+
+button {
+  background-color: v.$primary-color;
+  font-size: 1.2em;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  outline: none;
+
+  &:focus {
+    -webkit-box-shadow: 0 0 15px 5px rgba(204, 204, 204, 0.9);
+    -moz-box-shadow: 0 0 15px 5px rgba(204, 204, 204, 0.9);
+    box-shadow: 0 0 15px 5px rgba(204, 204, 204, 0.9);
+  }
+
+  &:hover {
+    background-color: v.$primary-hover-color;
+  }
+}
