@@ -68,6 +68,7 @@ body {
 }
 body > * {
   max-height: 100%;
+  padding: 2em 0;
 }
 @media (max-width: 1200px) {
   body {
@@ -79,10 +80,11 @@ body > * {
 .sign-out {
   position: fixed;
   top: 1vw;
-  right: 1.5vw;
+  right: 3.5vw;
   text-align: right;
   width: 100%;
   font-size: 1.2em;
+  z-index: 99;
 }
 
 .group-one {
