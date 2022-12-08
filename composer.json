@@ -4,5 +4,6 @@
   "minimum-stability": "stable",
   "license": "proprietary",
   "require": {
+    "ext-pdo": "*"
   }
 }

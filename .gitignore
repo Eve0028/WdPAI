@@ -1,6 +1,7 @@
 .idea
 /vendor/
 /db-data/
+config.php
 docker/php/conf.d/error_reporting.ini
 docker/php/conf.d/xdebug.ini
 
