@@ -25,10 +25,21 @@ CREATE TABLE password_
     password_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
     user_id     integer NOT NULL,
     password_   text    NOT NULL,
-    user_type   char    NOT NULL /*('t','s','p')*/
+    user_type   char    NOT NULL, /*('t','s','p')*/
+
+    CONSTRAINT fk_teacher_user
+        FOREIGN KEY (user_id)
+            REFERENCES teacher (teacher_id),
+    CONSTRAINT fk_parent_user
+        FOREIGN KEY (user_id)
+            REFERENCES parent (parent_id),
+    CONSTRAINT fk_student_user
+        FOREIGN KEY (user_id)
+            REFERENCES student (student_id)
 );
 
 
+/* class - list of students */
 DROP TABLE IF EXISTS class;
 
 CREATE TABLE class
@@ -36,7 +47,11 @@ CREATE TABLE class
     class_id      integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
     class_name    text    NOT NULL,
     grade         integer NOT NULL,
-    class_teacher integer NOT NULL
+    class_teacher integer NOT NULL,
+
+    CONSTRAINT fk_class_teacher
+        FOREIGN KEY (class_teacher)
+            REFERENCES teacher (teacher_id)
 );
 
 
@@ -54,7 +69,11 @@ CREATE TABLE teacher
     phone_number       integer NOT NULL,
     email_address      text    NOT NULL,
     subject_id         integer NOT NULL,
-    gender             char    NOT NULL /*('w','m')*/
+    gender             char    NOT NULL /*('w','m')*/,
+
+    CONSTRAINT fk_subject
+        FOREIGN KEY (subject_id)
+            REFERENCES subject (subject_id)
 );
 
 
@@ -62,7 +81,7 @@ DROP TABLE IF EXISTS day_of_week;
 
 CREATE TABLE day_of_week
 (
-    day_number integer NOT NULL,
+    day_number integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
     day_name   text    NOT NULL
 );
 
@@ -75,7 +94,17 @@ CREATE TABLE presence
     class_id    integer    NOT NULL,
     student_id  integer    NOT NULL,
     date_       date       NOT NULL,
-    type        varchar(3) NOT NULL /*('ob','nob','s','ns','su')*/
+    type        varchar(3) NOT NULL /*('ob','nob','s','ns','su')*/,
+
+    CONSTRAINT fk_class
+        FOREIGN KEY (class_id)
+            REFERENCES class (class_id),
+    CONSTRAINT fk_student
+        FOREIGN KEY (student_id)
+            REFERENCES student (student_id),
+    CONSTRAINT fk_type
+        FOREIGN KEY (type)
+            REFERENCES type_of_presence (type)
 );
 
 
@@ -84,7 +113,7 @@ DROP TABLE IF EXISTS type_of_presence;
 CREATE TABLE type_of_presence
 (
     type_id    integer    NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
-    type       varchar(3) NOT NULL, /*('ob','nob','s','ns','su')*/
+    type       varchar(3) NOT NULL unique, /*('ob','nob','s','ns','su')*/
     short_name text       NOT NULL,
     whole_name text       NOT NULL,
     color      text       NOT NULL
@@ -100,7 +129,20 @@ CREATE TABLE grade
     student_id integer NOT NULL,
     teacher_id integer NOT NULL,
     subject_id integer NOT NULL,
-    date_      date    NOT NULL
+    date_      date    NOT NULL,
+
+    CONSTRAINT fk_student
+        FOREIGN KEY (student_id)
+            REFERENCES student (student_id),
+    CONSTRAINT fk_teacher
+        FOREIGN KEY (teacher_id)
+            REFERENCES teacher (teacher_id),
+    CONSTRAINT fk_subject
+        FOREIGN KEY (subject_id)
+            REFERENCES subject (subject_id),
+    CONSTRAINT fk_grade
+        FOREIGN KEY (grade)
+            REFERENCES grade_name (grade)
 );
 
 
@@ -108,7 +150,7 @@ DROP TABLE IF EXISTS grade_name;
 
 CREATE TABLE grade_name
 (
-    grade      integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
+    grade      integer NOT NULL primary key,
     short_name text    NOT NULL,
     whole_name text    NOT NULL
 );
@@ -120,7 +162,11 @@ CREATE TABLE grade_description
 (
     description_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
     grade_id       integer NOT NULL,
-    description_   text    NOT NULL
+    description_   text    NOT NULL,
+
+    CONSTRAINT fk_grade
+        FOREIGN KEY (grade_id)
+            REFERENCES grade (grade_id)
 );
 
 
@@ -130,7 +176,11 @@ CREATE TABLE test_description
 (
     description_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
     test_id        integer NOT NULL,
-    description_   text    NOT NULL
+    description_   text    NOT NULL,
+
+    CONSTRAINT fk_test
+        FOREIGN KEY (test_id)
+            REFERENCES test (test_id)
 );
 
 
@@ -142,8 +192,18 @@ CREATE TABLE timetable
     day_of_week   integer NOT NULL,
     lesson_number integer NOT NULL,
     class_id      integer NOT NULL,
-    teacher_id    integer NOT NULL,
-    classroom_id  integer NOT NULL
+    teacher_id    integer NOT NULL, /* Currently, one teacher can teach only one subject */
+    classroom_id  integer NOT NULL,
+
+    CONSTRAINT fk_class
+        FOREIGN KEY (class_id)
+            REFERENCES class (class_id),
+    CONSTRAINT fk_teacher
+        FOREIGN KEY (teacher_id)
+            REFERENCES teacher (teacher_id),
+    CONSTRAINT fk_classroom
+        FOREIGN KEY (classroom_id)
+            REFERENCES classroom (classroom_id)
 );
 
 
@@ -181,7 +241,14 @@ CREATE TABLE classroom
     classroom_id   integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
     classroom_name text    NOT NULL,
     subject_id     integer NOT NULL,
-    teacher_id     integer NOT NULL
+    teacher_id     integer NOT NULL,
+
+    CONSTRAINT fk_subject
+        FOREIGN KEY (subject_id)
+            REFERENCES subject (subject_id),
+    CONSTRAINT fk_teacher
+        FOREIGN KEY (teacher_id)
+            REFERENCES teacher (teacher_id)
 );
 
 
@@ -195,7 +262,17 @@ CREATE TABLE test
     type_of_test  text    NOT NULL,
     teacher_id    integer NOT NULL,
     date_of_test  date    NOT NULL,
-    date_of_entry date    NOT NULL
+    date_of_entry date    NOT NULL,
+
+    CONSTRAINT fk_class
+        FOREIGN KEY (class_id)
+            REFERENCES class (class_id),
+    CONSTRAINT fk_subject
+        FOREIGN KEY (subject_id)
+            REFERENCES subject (subject_id),
+    CONSTRAINT fk_teacher
+        FOREIGN KEY (teacher_id)
+            REFERENCES teacher (teacher_id)
 );
 
 
@@ -214,7 +291,14 @@ CREATE TABLE student
     email_address      text    NOT NULL,
     class_id           integer NOT NULL,
     parent_id          integer NOT NULL,
-    gender             char    NOT NULL /*set('w','m')*/
+    gender             char    NOT NULL /*set('w','m')*/,
+
+    CONSTRAINT fk_class
+        FOREIGN KEY (class_id)
+            REFERENCES class (class_id),
+    CONSTRAINT fk_parent
+        FOREIGN KEY (parent_id)
+            REFERENCES parent (parent_id)
 );
 
 
@@ -227,7 +311,14 @@ CREATE TABLE note
     teacher_id integer     NOT NULL,
     type       varchar(10) NOT NULL, /*set('Positive','Negative')*/
     content    text        NOT NULL,
-    date_      date        NOT NULL
+    date_      date        NOT NULL,
+
+    CONSTRAINT fk_student
+        FOREIGN KEY (student_id)
+            REFERENCES student (student_id),
+    CONSTRAINT fk_teacher
+        FOREIGN KEY (teacher_id)
+            REFERENCES teacher (teacher_id)
 );
 
 
@@ -240,5 +331,4 @@ CREATE TABLE school
     phone_number      integer NOT NULL,
     principal_name    text    NOT NULL,
     principal_surname text    NOT NULL
-)
-
+);
