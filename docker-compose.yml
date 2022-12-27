@@ -32,7 +32,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=ediary
     logging:
       options:
         max-size: 10m
@@ -41,6 +41,7 @@ services:
       - '5432:5432'
     volumes:
       - ./db-data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - internal
 
