@@ -176,17 +176,33 @@ DROP TABLE IF EXISTS teacher;
 CREATE TABLE teacher
 (
     teacher_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
-    user_id    text    NOT NULL,
+    user_id    integer NOT NULL,
+
+    CONSTRAINT fk_user
+        FOREIGN KEY (user_id)
+            REFERENCES user_ (user_id)
+            on update cascade on delete cascade
+);
+
+INSERT INTO teacher (user_id)
+VALUES (5);
+
+
+CREATE TABLE teacher_subject
+(
+    teacher_subject_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
+    teacher_id integer NOT NULL,
     subject_id integer NOT NULL,
 
+    CONSTRAINT fk_teacher
+        FOREIGN KEY (teacher_id)
+            REFERENCES teacher (teacher_id)
+            on update cascade on delete cascade,
     CONSTRAINT fk_subject
         FOREIGN KEY (subject_id)
             REFERENCES subject (subject_id)
             on update cascade on delete cascade
 );
-
-INSERT INTO teacher (user_id, subject_id)
-VALUES (5, 2);
 
 
 DROP TABLE IF EXISTS parent;
@@ -194,7 +210,12 @@ DROP TABLE IF EXISTS parent;
 CREATE TABLE parent
 (
     parent_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
-    user_id   text    NOT NULL
+    user_id   integer NOT NULL,
+
+    CONSTRAINT fk_user
+        FOREIGN KEY (user_id)
+            REFERENCES user_ (user_id)
+            on update cascade on delete cascade
 );
 
 INSERT INTO parent (user_id)
@@ -230,9 +251,14 @@ DROP TABLE IF EXISTS student;
 CREATE TABLE student
 (
     student_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
+    user_id    integer NOT NULL,
     class_id   integer NOT NULL,
     parent_id  integer NOT NULL,
 
+    CONSTRAINT fk_user
+        FOREIGN KEY (user_id)
+            REFERENCES user_ (user_id)
+            on update cascade on delete cascade,
     CONSTRAINT fk_class
         FOREIGN KEY (class_id)
             REFERENCES class (class_id)
@@ -243,10 +269,10 @@ CREATE TABLE student
             on update cascade on delete cascade
 );
 
-INSERT INTO student (class_id, parent_id)
-VALUES (1, 1),
-       (2, 1),
-       (1, 1);
+INSERT INTO student (user_id, class_id, parent_id)
+VALUES (2, 1, 1),
+       (3, 2, 1),
+       (4, 1, 1);
 
 
 DROP TABLE IF EXISTS lesson_hour;
