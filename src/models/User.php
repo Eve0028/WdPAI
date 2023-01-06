@@ -1,18 +1,43 @@
 <?php
 
+require_once 'Address.php';
+
 class User
 {
     private $email;
-    private $password_hash;
+    private $passwordHash;
+    private $userType;
+
     private $name;
     private $surname;
+    private $pesel;
+    private $dateOfBirth;
+    private $placeOfBirth;
+    private $address;
+    private $phoneNumber;
+    private $gender;
 
-    public function __construct(string $email, string $password_hash, string $name, string $surname)
+    private $enabled;
+
+    public function __construct(string $email, string $passwordHash, string $userType,
+                                string $name, string $surname, string $pesel,
+                                string $dateOfBirth, string $placeOfBirth, Address $address,
+                                string $phoneNumber, string $gender,
+                                bool   $enabled)
     {
         $this->email = $email;
-        $this->password_hash = $password_hash;
+        $this->passwordHash = $passwordHash;
+        $this->userType = $userType;
         $this->name = $name;
         $this->surname = $surname;
+        $this->pesel = $pesel;
+        $this->dateOfBirth = $dateOfBirth;
+        $this->placeOfBirth = $placeOfBirth;
+        $this->address = $address;
+        $this->phoneNumber = $phoneNumber;
+        $this->gender = $gender;
+
+        $this->enabled = $enabled;
     }
 
     public function getEmail(): string
@@ -27,12 +52,22 @@ class User
 
     public function getPasswordHash(): string
     {
-        return $this->password_hash;
+        return $this->passwordHash;
     }
 
-    public function setPasswordHash(string $password_hash): void
+    public function setPasswordHash(string $passwordHash): void
     {
-        $this->password_hash = $password_hash;
+        $this->passwordHash = $passwordHash;
+    }
+
+    public function getUserType(): string
+    {
+        return $this->userType;
+    }
+
+    public function setUserType(string $userType): void
+    {
+        $this->userType = $userType;
     }
 
     public function getName(): string
@@ -55,5 +90,73 @@ class User
         $this->surname = $surname;
     }
 
+    public function getPesel(): string
+    {
+        return $this->pesel;
+    }
 
+    public function setPesel($pesel): void
+    {
+        $this->pesel = $pesel;
+    }
+
+    public function getDateOfBirth(): string
+    {
+        return $this->dateOfBirth;
+    }
+
+    public function setDateOfBirth($dateOfBirth): void
+    {
+        $this->dateOfBirth = $dateOfBirth;
+    }
+
+    public function getPlaceOfBirth(): string
+    {
+        return $this->placeOfBirth;
+    }
+
+    public function setPlaceOfBirth($placeOfBirth): void
+    {
+        $this->placeOfBirth = $placeOfBirth;
+    }
+
+    public function getAddress(): Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(Address $address): void
+    {
+        $this->address = $address;
+    }
+
+    public function getPhoneNumber(): string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber($phoneNumber): void
+    {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    public function getGender(): string
+    {
+        return $this->gender;
+    }
+
+    public function setGender($gender): void
+    {
+        $this->gender = $gender;
+    }
+
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled($enabled): void
+    {
+        $this->enabled = $enabled;
+    }
 }

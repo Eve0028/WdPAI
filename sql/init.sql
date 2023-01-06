@@ -1,3 +1,5 @@
+CREATE EXTENSION pgcrypto;
+
 DROP TABLE IF EXISTS admin;
 
 CREATE TABLE admin
@@ -123,7 +125,6 @@ CREATE TABLE user_
     password_       text    NOT NULL,
     email           text    NOT NULL,
     enabled_        boolean NOT NULL default false,
-    salt            text    NOT NULL,
     created_at      date    NOT NULL,
 
     CONSTRAINT fk_details
@@ -136,13 +137,12 @@ CREATE TABLE user_
             on update cascade on delete cascade
 );
 
-INSERT INTO user_ (user_details_id, user_type_id, password_, email, salt, created_at)
-VALUES (22, 3, '$2y$10$V.ajrG1rUZtKbOuPMQGJzufRHf6pZ1ZaY6SDyAYcMKHSnqG6OqW/2', 'stefan_r@gmail.com', '', '2022-08-15'),
-       (1, 2, '$2y$10$HWn28CH35AEw13Z1y0YeFeL2NXWL0btylGfc1UMwaQJZPUTMt8//i', 'grzegorz_u@gmail.com', '',
-        '2022-08-15'),
-       (2, 2, '$2y$10$HXX77CSD0izDT61WFGx8POBRIOSoRncvz5v3Kh.7Y5z2DSEf8tRMG', 'kasia_u@gmail.com', '', '2022-08-15'),
-       (4, 2, '$2y$10$gqID8u9x4ACzsfF6oD3rD.8HBCrkO1AEhw7jwUSMLh3H8xiptbCo.', 'julia_u@gmail.com', '', '2022-08-15'),
-       (23, 1, '$2y$10$0gxpacYmYQ1feEtKcISLF.9ADWzBsRtiLM6Qn0BTakoA5PvQxvzfW', 'adam_n@gmail.com', '', '2022-08-15');
+INSERT INTO user_ (user_details_id, user_type_id, password_, email, created_at)
+VALUES (22, 3, '$2y$10$V.ajrG1rUZtKbOuPMQGJzufRHf6pZ1ZaY6SDyAYcMKHSnqG6OqW/2', 'stefan_r@gmail.com', '2022-08-15'),
+       (1, 2, '$2y$10$HWn28CH35AEw13Z1y0YeFeL2NXWL0btylGfc1UMwaQJZPUTMt8//i', 'grzegorz_u@gmail.com', '2022-08-15'),
+       (2, 2, '$2y$10$HXX77CSD0izDT61WFGx8POBRIOSoRncvz5v3Kh.7Y5z2DSEf8tRMG', 'kasia_u@gmail.com', '2022-08-15'),
+       (4, 2, '$2y$10$gqID8u9x4ACzsfF6oD3rD.8HBCrkO1AEhw7jwUSMLh3H8xiptbCo.', 'julia_u@gmail.com', '2022-08-15'),
+       (23, 1, '$2y$10$0gxpacYmYQ1feEtKcISLF.9ADWzBsRtiLM6Qn0BTakoA5PvQxvzfW', 'adam_n@gmail.com', '2022-08-15');
 /*p, s, s, s, t*/
 
 
