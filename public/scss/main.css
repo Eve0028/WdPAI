@@ -197,10 +197,24 @@ input[type=email]:focus {
   color: #428c42;
 }
 
+form input {
+  margin-top: 0.4em;
+  margin-bottom: 0.6em;
+}
+form button {
+  padding: 0.7em;
+  margin-top: 0.4em;
+}
+
 .container {
   background-color: white;
   box-shadow: 0 0 35px 2px rgba(0, 0, 0, 0.25);
   padding: 2.4em 3.4em;
+}
+
+.form-vertical {
+  display: flex;
+  flex-flow: column wrap;
 }
 
 .logo {
@@ -213,19 +227,6 @@ input[type=email]:focus {
 }
 .logo::first-letter {
   color: rgb(54, 176, 60);
-}
-
-form {
-  display: flex;
-  flex-flow: column wrap;
-}
-form input {
-  margin-top: 0.4em;
-  margin-bottom: 0.6em;
-}
-form button {
-  padding: 0.7em;
-  margin-top: 0.4em;
 }
 
 a:link {
@@ -247,6 +248,61 @@ a.sign-up {
   display: block;
   text-align: center;
   padding-top: 0.6em;
+}
+
+.form-control {
+  font-family: Lato, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.15em;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  cursor: pointer;
+}
+.form-control + .form-control {
+  margin-left: 1.6em;
+}
+.form-control input[type=radio] {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: #111;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #666;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+.form-control input[type=radio]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em rgb(54, 176, 60);
+}
+.form-control input[type=radio]:checked::before {
+  transform: scale(1);
+}
+
+.form-horizontal {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.radio-group {
+  display: flex;
+}
+
+h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding-bottom: 0.5em;
 }
 
 /*# sourceMappingURL=main.css.map */

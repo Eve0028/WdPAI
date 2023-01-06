@@ -15,7 +15,7 @@
         <h1 class="logo"><em class="logo-prefix">e</em>Diary</h1>
     </header>
     <main class="login-container">
-        <form class="login" action="login" method="POST">
+        <form class="login form-vertical" action="login" method="POST">
             <input name="email" type="email" required placeholder="email address">
             <input name="password" type="password" required placeholder="password">
 
@@ -32,6 +32,6 @@
             <button type="submit">Login</button>
         </form>
     </main>
-    <a href="signup.php" class="sign-up">Sign up</a>
+    <a href="signup" class="sign-up">Sign up</a>
 </div>
 </body>

@@ -4,9 +4,14 @@
 @use '../utils/mixins' as mix;
 @use '../components/buttons';
 @use '../components/inputs';
+@use '../components/form';
 @use '../base/body';
 @use "../components/container";
 
+.form-vertical {
+  display: flex;
+  flex-flow: column wrap;
+}
 
 .logo {
   font-family: v.$logo-font;
@@ -18,21 +23,6 @@
 
   &::first-letter {
     color: v.$primary-color;
-  }
-}
-
-form {
-  display: flex;
-  flex-flow: column wrap;
-
-  input {
-    margin-top: 0.4em;
-    margin-bottom: 0.6em;
-  }
-
-  button {
-    padding: 0.7em;
-    margin-top: 0.4em;
   }
 }
 
