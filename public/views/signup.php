@@ -60,9 +60,9 @@
                 ?>
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit">Sign up</button>
         </form>
     </main>
-    <a href="signup.php" class="sign-up">Sign up</a>
+    <a href="login" class="login">Login</a>
 </div>
 </body>
