@@ -8,10 +8,11 @@
 .sign-out{
   position: fixed;
   top: 1vw;
-  right: 1.5vw;
+  right: 3.5vw;
   text-align: right;
   width: 100%;
   font-size: 1.2em;
+  z-index: 99;
 }
 
 @each $tile, $color in v.$tiles-color {
