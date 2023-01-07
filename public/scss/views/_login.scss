@@ -4,36 +4,18 @@
 @use '../utils/mixins' as mix;
 @use '../components/buttons';
 @use '../components/inputs';
+@use '../components/form';
 @use '../base/body';
 @use "../components/container";
+@use "../components/logo";
 
-
-.logo {
-  font-family: v.$logo-font;
-  font-size: 3em;
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: 0;
-  padding-bottom: 0.3em;
-
-  &::first-letter {
-    color: v.$primary-color;
-  }
+body{
+  height: 100vh;
 }
 
-form {
+.form-vertical {
   display: flex;
   flex-flow: column wrap;
-
-  input {
-    margin-top: 0.4em;
-    margin-bottom: 0.6em;
-  }
-
-  button {
-    padding: 0.7em;
-    margin-top: 0.4em;
-  }
 }
 
 a {

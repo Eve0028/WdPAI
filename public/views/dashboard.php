@@ -18,7 +18,7 @@
             <span>Name Surname</span>
         </header>
         <a class="tile group-one" href="tiles/grades.php">
-            <h3 class="tile-title">Attendance</h3>
+            <h3 class="tile-title">Grades</h3>
             <img src="/public/img/scores.png" alt="grades icon"/>
         </a>
         <a class="tile group-two" href="tiles/attendance.php">
