@@ -14,4 +14,15 @@ class SignupDataRepository extends Repository
         $userTypesAll = $statement->fetchAll(PDO::FETCH_ASSOC);
         return array_column($userTypesAll, 'user_type');
     }
+
+    public function getGenderTypes(): array|false
+    {
+        $statement = $this->database->connect()->prepare('
+            SELECT * FROM gender
+        ');
+        $statement->execute();
+
+        $genderTypesAll = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return array_column($genderTypesAll, 'gender');
+    }
 }

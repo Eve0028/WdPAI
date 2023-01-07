@@ -8,6 +8,16 @@
 @use '../components/form';
 @use '../base/body';
 @use "../components/container";
+@use "../components/logo";
+
+
+a {
+  @include mix.links_style;
+}
+
+.container{
+  margin: 4em;
+}
 
 .form-horizontal {
   display: flex;
@@ -18,9 +28,33 @@
   display: flex;
 }
 
-h3 {
-  font-size: 1.2em;
-  font-weight: bold;
-  padding-bottom: 0.5em;
+header {
+  text-align: left;
+
+  h2 {
+    text-align: left;
+  }
+}
+
+.line-in-form {
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: 0.8em;
+}
+
+a.login{
+  text-align: center;
+}
+
+.radio-group{
+  margin-bottom: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: 1.5em;
+  row-gap: 0.6em;
+}
+
+.messages{
+  max-width: 34rem;
 }
 

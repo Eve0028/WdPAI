@@ -40,7 +40,9 @@ class SecurityController extends AppController
     {
         if (!$this->isPost()) {
             $signupDataRepo = new SignupDataRepository();
-            return $this->render('signup', ['userTypes' => $signupDataRepo->getUserTypes()]);
+            return $this->render('signup',
+                ['userTypes' => $signupDataRepo->getUserTypes(),
+                    'genderTypes' => $signupDataRepo->getGenderTypes()]);
         }
 
         $userType = $_POST['userType'];
@@ -63,7 +65,7 @@ class SecurityController extends AppController
         $gender = $_POST['gender'];
 
         if ($password !== $confirmedPassword) {
-            return $this->render('register', ['messages' => ['Please provide proper password']]);
+            return $this->render('signup', ['messages' => ['Please provide proper password']]);
         }
 
         // Validate password strength
@@ -73,7 +75,7 @@ class SecurityController extends AppController
         $specialChars = preg_match('@[^\w]@', $password);
 
         if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8 || strlen($password) > 72) {
-            return $this->render('register', ['messages' => [
+            return $this->render('signup', ['messages' => [
                 'Password should be between 8 and 72 characters in length and should include at least one upper case letter, one number, and one special character.'
             ]]);
         }
@@ -81,7 +83,7 @@ class SecurityController extends AppController
         $address = new Address($postalCode, $street, $locality, $houseNumber);
         $user = new User($email, password_hash($password, PASSWORD_BCRYPT), $userType,
             $name, $surname, $pesel, $dateOfBirth, $placeOfBirth, $address, $phoneNumber, $gender,
-            true
+            false
         );
 
         $this->userRepository->addUser($user);

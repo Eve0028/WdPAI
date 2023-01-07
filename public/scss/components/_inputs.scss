@@ -2,7 +2,10 @@
 
 input[type='text'],
 input[type='password'],
-input[type='email']{
+input[type='email'],
+input[type='tel'],
+input[type='number'],
+input[type='date']{
   background-color: #efefef;
   color: v.$font-input-color;
   border: 2px solid #ddd;

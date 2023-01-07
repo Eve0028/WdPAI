@@ -31,9 +31,9 @@ class UserRepository extends Repository
 
         return new User(
             $user['email'],
-            $user['password_hash'],
+            $user['password_'],
             $user['user_type'],
-            $user['name'],
+            $user['name_'],
             $user['surname'],
             $user['pesel'],
             $user['date_of_birth'],
@@ -42,13 +42,16 @@ class UserRepository extends Repository
             $user['phone_number'],
             $user['gender'],
 
-            $user['enabled']
+            $user['enabled_']
         );
     }
 
     public function addUser(User $user)
     {
         $date = new DateTime();
+
+        //TODO
+        // Add transaction system - add all or nothing
 
         // Add user address
         $statement = $this->database->connect()->prepare('
@@ -93,7 +96,7 @@ class UserRepository extends Repository
             $this->getUserTypeId($user),
             $user->getPasswordHash(),
             $user->getEmail(),
-            $user->getEnabled(),
+            (int)$user->getEnabled(),
             $date->format('Y-m-d')
         ]);
     }
