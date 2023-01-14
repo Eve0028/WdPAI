@@ -21,7 +21,7 @@ CREATE TABLE address
     postal_code text    NOT NULL,
     street      text    NOT NULL,
     locality    text    NOT NULL,
-    number      text    NOT NULL
+    number      integer NOT NULL
 );
 
 INSERT INTO address (postal_code, street, locality, number)
@@ -191,8 +191,8 @@ VALUES (5);
 CREATE TABLE teacher_subject
 (
     teacher_subject_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
-    teacher_id integer NOT NULL,
-    subject_id integer NOT NULL,
+    teacher_id         integer NOT NULL,
+    subject_id         integer NOT NULL,
 
     CONSTRAINT fk_teacher
         FOREIGN KEY (teacher_id)

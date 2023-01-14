@@ -28,7 +28,11 @@
                 }
                 ?>
             </div>
-
+            <div><?php if(isset($messages)) {
+                foreach ($messages as $message){
+                    echo "<p>$message</p>";
+                }
+            } ?></div>
             <button type="submit">Login</button>
         </form>
     </main>

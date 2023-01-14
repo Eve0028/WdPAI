@@ -1,3 +1,24 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['email'])) {
+    $url = "http://$_SERVER[HTTP_HOST]";
+    header("Location: {$url}/login");
+} else {
+    $email = $_SESSION['email'];
+
+    require_once __DIR__ . '/../../src/repository/UserRepository.php';
+    $userRepository = new UserRepository();
+    try {
+        $user = $userRepository->getUser($email);
+    } catch (Exception $err) {
+        return $this->render('login', ['warnings' => [$err->getMessage()]]);
+    }
+}
+?>
+
 <!DOCTYPE html>
 
 <head>
@@ -10,47 +31,49 @@
 </head>
 
 <body>
-    <a href="#" class="sign-out">Sign out</a>
+<a href="logout" class="sign-out">Sign out</a>
 
-    <div class="container-tiles">
-        <header class="logo-container">
+<div class="container-tiles">
+    <header class="logo-container">
+        <a class="logo-link" href="dashboard">
             <h1 class="logo"><em class="logo-prefix">e</em>Diary</h1>
-            <span>Name Surname</span>
-        </header>
-        <a class="tile group-one" href="tiles/grades.php">
-            <h3 class="tile-title">Grades</h3>
-            <img src="/public/img/scores.png" alt="grades icon"/>
         </a>
-        <a class="tile group-two" href="tiles/attendance.php">
-            <h3 class="tile-title">Attendance</h3>
-            <img src="/public/img/survey.png" alt="attendance icon"/>
-        </a>
+        <span><?= $user->getName()." ".$user->getSurname() ?></span>
+    </header>
+    <a class="tile group-one" href="grades">
+        <h3 class="tile-title">Grades</h3>
+        <img src="/public/img/scores.png" alt="grades icon"/>
+    </a>
+    <a class="tile group-two" href="attendance">
+        <h3 class="tile-title">Attendance</h3>
+        <img src="/public/img/survey.png" alt="attendance icon"/>
+    </a>
 
-        <a class="tile group-three" href="tiles/grades.php">
-            <h3 class="tile-title">Tests</h3>
-            <img src="/public/img/open-book.png" alt="tests icon"/>
-        </a>
-        <a class="tile group-four" href="tiles/grades.php">
-            <h3 class="tile-title">Timetable</h3>
-            <img src="/public/img/small-calendar.png" alt="timetable icon"/>
-        </a>
-        <a class="tile group-three" href="tiles/grades.php">
-            <h3 class="tile-title">Remarks</h3>
-            <img src="/public/img/warning.png" alt="remarks icon"/>
-        </a>
+    <a class="tile group-three" href="grades.php">
+        <h3 class="tile-title">Tests</h3>
+        <img src="/public/img/open-book.png" alt="tests icon"/>
+    </a>
+    <a class="tile group-four" href="grades.php">
+        <h3 class="tile-title">Timetable</h3>
+        <img src="/public/img/small-calendar.png" alt="timetable icon"/>
+    </a>
+    <a class="tile group-three" href="grades.php">
+        <h3 class="tile-title">Remarks</h3>
+        <img src="/public/img/warning.png" alt="remarks icon"/>
+    </a>
 
-        <a class="tile group-four" href="tiles/grades.php">
-            <h3 class="tile-title">Achievements</h3>
-            <img src="/public/img/bar-chart.png" alt="achievements icon"/>
-        </a>
-        <a class="tile group-two" href="tiles/grades.php">
-            <h3 class="tile-title">Personal data</h3>
-            <img src="/public/img/resume.png" alt="personal data icon"/>
-        </a>
-        <a class="tile group-one" href="tiles/grades.php">
-            <h3 class="tile-title">School and teachers</h3>
-            <img src="/public/img/briefcase.png" alt="school and teachers icon"/>
-        </a>
+    <a class="tile group-four" href="grades.php">
+        <h3 class="tile-title">Achievements</h3>
+        <img src="/public/img/bar-chart.png" alt="achievements icon"/>
+    </a>
+    <a class="tile group-two" href="grades.php">
+        <h3 class="tile-title">Personal data</h3>
+        <img src="/public/img/resume.png" alt="personal data icon"/>
+    </a>
+    <a class="tile group-one" href="grades.php">
+        <h3 class="tile-title">School and teachers</h3>
+        <img src="/public/img/briefcase.png" alt="school and teachers icon"/>
+    </a>
 
-    </div>
+</div>
 </body>

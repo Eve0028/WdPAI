@@ -1,7 +1,7 @@
 <?php
 
 require_once 'AppController.php';
-require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../models/user/User.php';
 require_once __DIR__ . '/../repository/UserRepository.php';
 require_once __DIR__ . '/../repository/SignupDataRepository.php';
 
@@ -18,9 +18,15 @@ class SecurityController extends AppController
     public function login()
     {
         if (!$this->isPost()) {
+            if (isset($_SESSION['email'])) {
+                return $this->render('dashboard');
+            }
             return $this->render('login');
         }
 
+        if (!isset($_POST['email']) || !isset($_POST['password'])) {
+            return $this->render('login');
+        }
         $email = $_POST['email'];
         $password = $_POST['password'];
         try {
@@ -32,17 +38,27 @@ class SecurityController extends AppController
             return $this->render('login', ['warnings' => ['User not found']]);
         }
 
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/dashboard");
+        // session_start();
+        setcookie(session_name(), session_id(), time() + 3600);
+        $_SESSION['email'] = $email;
+        return $this->render('dashboard');
     }
 
     public function signup()
     {
         if (!$this->isPost()) {
+            if (isset($_SESSION['email'])) {
+                return $this->render('dashboard');
+            }
+
             $signupDataRepo = new SignupDataRepository();
             return $this->render('signup',
                 ['userTypes' => $signupDataRepo->getUserTypes(),
                     'genderTypes' => $signupDataRepo->getGenderTypes()]);
+        }
+
+        if (!isset($_POST['email']) || !isset($_POST['password'])) {
+            return $this->render('signup');
         }
 
         $userType = $_POST['userType'];
@@ -87,7 +103,29 @@ class SecurityController extends AppController
         );
 
         $this->userRepository->addUser($user);
+        //TODO add TypeOfUser to second table (student, teacher or parent)
 
         return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
+    }
+
+    public function logout()
+    {
+        // session_start();
+
+        // Unset all of the session variables.
+        $_SESSION = array();
+
+        // If it's desired to kill the session, also delete the session cookie.
+        // Note: This will destroy the session, and not just the session data!
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+        session_destroy();
+
+        return $this->render('login');
     }
 }

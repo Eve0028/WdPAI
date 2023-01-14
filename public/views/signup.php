@@ -23,7 +23,8 @@
                 if (isset($userTypes)) {
                     foreach ($userTypes as $value): ?>
                         <label class="form-control">
-                            <input type="radio" name="userType" required value="<?php echo $value; ?>"> <?php echo $value; ?>
+                            <input type="radio" name="userType" required
+                                   value="<?php echo $value; ?>"> <?php echo $value; ?>
                         </label>
                     <?php endforeach;
                 } ?>
@@ -31,7 +32,7 @@
 
 
             <input oninvalid="this.setCustomValidity('Enter Uemaaail')"
-  oninput="this.setCustomValidity('')" name="email" type="email" required placeholder="email address">
+                   oninput="this.setCustomValidity('')" name="email" type="email" required placeholder="email address">
 
             <div class="line-in-form">
                 <input name="password" type="password" required placeholder="password">
@@ -69,7 +70,8 @@
                 if (isset($genderTypes)) {
                     foreach ($genderTypes as $value): ?>
                         <label class="form-control">
-                            <input type="radio" name="gender" required value="<?php echo $value; ?>"> <?php echo $value; ?>
+                            <input type="radio" name="gender" required
+                                   value="<?php echo $value; ?>"> <?php echo $value; ?>
                         </label>
                     <?php endforeach;
                 } ?>

@@ -72,6 +72,29 @@ h3 {
   }
 }
  */
+body {
+  width: 100vw;
+  _height: 100vh;
+  background-image: url("/public/img/bg.png");
+  background-size: 100%;
+  font-size: 16px;
+  font-family: Lato, sans-serif;
+  color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body > * {
+  max-height: 100%;
+  padding: 2em 0;
+}
+@media (max-width: 1200px) {
+  body {
+    width: auto;
+    height: auto;
+  }
+}
+
 button {
   background-color: rgb(54, 176, 60);
   font-size: 1.2em;
@@ -166,29 +189,6 @@ form button {
   margin-top: 0.4em;
 }
 
-body {
-  width: 100vw;
-  _height: 100vh;
-  background-image: url("/public/img/bg.png");
-  background-size: 100%;
-  font-size: 16px;
-  font-family: Lato, sans-serif;
-  color: #111;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-body > * {
-  max-height: 100%;
-  padding: 2em 0;
-}
-@media (max-width: 1200px) {
-  body {
-    width: auto;
-    height: auto;
-  }
-}
-
 .container {
   background-color: white;
   box-shadow: 0 0 35px 2px rgba(0, 0, 0, 0.25);
@@ -202,9 +202,15 @@ body > * {
   text-align: center;
   letter-spacing: 0;
   padding-bottom: 0.3em;
+  color: #111;
 }
 .logo::first-letter {
   color: rgb(54, 176, 60);
+}
+
+.logo-link:hover {
+  text-decoration: none;
+  color: #111;
 }
 
 a:link {
