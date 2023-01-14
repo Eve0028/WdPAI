@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Repository.php';
-require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../models/user/User.php';
 
 class UserRepository extends Repository
 {
@@ -52,6 +52,7 @@ class UserRepository extends Repository
 
         //TODO
         // Add transaction system - add all or nothing
+        // Add exception
 
         // Add user address
         $statement = $this->database->connect()->prepare('
@@ -68,6 +69,8 @@ class UserRepository extends Repository
 
 
         // Add user_details
+        //TODO
+        // Add Caps letters (in trigger in database?)
         $statement = $this->database->connect()->prepare('
             INSERT INTO user_details (name_, surname, pesel, date_of_birth, place_of_birth, address_id, phone_number, gender_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
