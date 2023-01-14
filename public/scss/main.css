@@ -100,9 +100,26 @@ body > * {
   top: 1vw;
   right: 3.5vw;
   text-align: right;
-  width: 100%;
   font-size: 1.2em;
   z-index: 99;
+}
+
+.logo {
+  font-family: Amita;
+  font-size: 3em;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0;
+  padding-bottom: 0.3em;
+  color: #111;
+}
+.logo::first-letter {
+  color: rgb(54, 176, 60);
+}
+
+.logo-link:hover {
+  text-decoration: none;
+  color: #111;
 }
 
 .group-one {
@@ -236,18 +253,6 @@ form button {
   padding: 2.4em 3.4em;
 }
 
-.logo {
-  font-family: Amita;
-  font-size: 3em;
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: 0;
-  padding-bottom: 0.3em;
-}
-.logo::first-letter {
-  color: rgb(54, 176, 60);
-}
-
 body {
   height: 100vh;
 }
@@ -370,6 +375,90 @@ a.login {
 
 .messages {
   max-width: 34rem;
+}
+
+.container-tile-option {
+  display: flex;
+  flex-direction: column;
+}
+
+header.info-header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 2px black solid;
+  padding-bottom: 0.6em;
+  margin-bottom: 2em;
+}
+header h2 {
+  padding-bottom: 0.2em;
+  padding-right: 1em;
+}
+
+.container-tile-option .container {
+  min-width: 35vw;
+  margin: 1em 1em;
+  position: relative;
+}
+.container-tile-option .container .grades-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.7em 0;
+  border-bottom: gray 1px solid;
+}
+.container-tile-option .container .grades-row .subject-name {
+  padding-right: 3em;
+}
+.container-tile-option .container .grades-row .subject-grades, .container-tile-option .container .grades-row .one-student {
+  display: flex;
+  flex-direction: row;
+}
+.container-tile-option .container .one-grade:not(:last-child) {
+  margin-right: 0.6em;
+}
+.container-tile-option .container .one-grade:not(:last-child):after {
+  content: ",";
+}
+.container-tile-option .container .student-with-grades, .container-tile-option .container .student-grades {
+  display: flex;
+  flex-direction: row;
+}
+.container-tile-option .container .student-with-grades {
+  justify-content: space-between;
+}
+.container-tile-option .container .subject-name {
+  color: rgb(54, 176, 60);
+}
+.container-tile-option .container .one-class {
+  font-weight: 500;
+  padding-bottom: 0.2em;
+}
+.container-tile-option .container .teacher-one-subject {
+  padding-top: 1em;
+  padding-bottom: 0.6em;
+  border-bottom: gray 1px solid;
+}
+.container-tile-option .container .class-with-students {
+  padding: 1em 0;
+}
+.container-tile-option .container .class-with-students:not(:last-child) {
+  border-bottom: gray 1px dashed;
+}
+.container-tile-option .container .all-student-in-class {
+  padding-left: 0.5em;
+}
+
+.back-to-dashboard {
+  position: absolute;
+  top: -0.1em;
+  left: -0.1em;
+  padding: 0.6em;
+  font-size: 1.6em;
+  font-weight: 800;
+  color: gray;
 }
 
 /*# sourceMappingURL=main.css.map */
