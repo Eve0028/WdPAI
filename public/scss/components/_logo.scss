@@ -7,8 +7,14 @@
   text-align: center;
   letter-spacing: 0;
   padding-bottom: 0.3em;
+  color: v.$content-font-color;
 
   &::first-letter {
     color: v.$primary-color;
   }
+}
+
+.logo-link:hover{
+  text-decoration: none;
+  color: v.$content-font-color;
 }

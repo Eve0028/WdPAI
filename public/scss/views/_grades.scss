@@ -1,0 +1,96 @@
+@use '../utils/variables' as v;
+
+header {
+  &.info-header {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    border-bottom: 2px black solid;
+    padding-bottom: 0.6em;
+    margin-bottom: 2em;
+  }
+
+  h2 {
+    padding-bottom: 0.2em;
+    padding-right: 1em;
+  }
+}
+
+.container-tile-option .container {
+  min-width: 35vw;
+  margin: 1em 1em;
+  position: relative;
+
+  .grades-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.7em 0;
+    border-bottom: gray 1px solid;
+
+    .subject-name {
+      padding-right: 3em;
+    }
+
+    .subject-grades, .one-student {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .one-grade:not(:last-child) {
+    &:after {
+      content: ",";
+    }
+
+    margin-right: 0.6em;
+  }
+
+  .student-with-grades, .student-grades {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .student-with-grades{
+    justify-content: space-between;
+  }
+
+  .subject-name{
+    color: v.$primary-color;
+  }
+
+  .one-class{
+    font-weight: 500;
+    padding-bottom: 0.2em;
+  }
+
+  .teacher-one-subject{
+    padding-top: 1em;
+    padding-bottom: 0.6em;
+    border-bottom: gray 1px solid;
+  }
+
+  .class-with-students{
+    &:not(:last-child){
+      border-bottom: gray 1px dashed;
+    }
+    padding: 1em 0;
+  }
+
+  .all-student-in-class{
+    padding-left: 0.5em;
+  }
+}
+
+.back-to-dashboard {
+  position: absolute;
+  top: -0.1em;
+  left: -0.1em;
+  padding: 0.6em;
+  font-size: 1.6em;
+  font-weight: 800;
+  color: gray;
+}
