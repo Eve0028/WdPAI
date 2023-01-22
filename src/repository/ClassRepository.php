@@ -9,8 +9,7 @@ class ClassRepository extends Repository
     {
         $statement = $this->database->connect()->prepare('
             SELECT class_name, grade, email as teacherEmail FROM class 
-                LEFT JOIN teacher t ON t.teacher_id = class.class_teacher
-                    LEFT JOIN user_ u ON u.user_id = t.user_id
+                LEFT JOIN user_ u ON u.user_id = class.class_teacher
                 WHERE class.class_name = :className
         ');
         $statement->bindParam(':className', $className, PDO::PARAM_STR);
@@ -33,10 +32,9 @@ class ClassRepository extends Repository
     {
         $statement = $this->database->connect()->prepare('
             SELECT class_name, grade, ut.email as teacherEmail FROM class 
-                LEFT JOIN teacher t ON t.teacher_id = class.class_teacher
-                    LEFT JOIN user_ ut ON ut.user_id = t.user_id
-                LEFT JOIN student s ON class.class_id = s.class_id
-                    LEFT JOIN user_ us ON us.user_id = s.user_id
+                LEFT JOIN user_ ut ON ut.user_id = class.class_teacher
+                LEFT JOIN student_class sclass ON sclass.class_id = class.class_id
+                    LEFT JOIN user_ us ON us.user_id = sclass.student_id
                 WHERE us.email = :studentEmail
         ');
         $statement->bindParam(':studentEmail', $studentEmail, PDO::PARAM_STR);
@@ -44,9 +42,9 @@ class ClassRepository extends Repository
 
         $class = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if (!$class) {
-            throw new Exception('Class not found');
-        }
+//        if (!$class) {
+//            throw new Exception('Class not found');
+//        }
 
         return new ClassOfStudents(
             $class['class_name'],
@@ -59,8 +57,7 @@ class ClassRepository extends Repository
     {
         $statement = $this->database->connect()->prepare('
             SELECT class_name, grade, ut.email as teacherEmail FROM class 
-                LEFT JOIN teacher t ON t.teacher_id = class.class_teacher
-                    LEFT JOIN user_ ut ON ut.user_id = t.user_id
+                LEFT JOIN user_ ut ON ut.user_id = class.class_teacher
                 WHERE ut.email = :teacherEmail
         ');
         $statement->bindParam(':teacherEmail', $teacherEmail, PDO::PARAM_STR);
