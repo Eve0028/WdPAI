@@ -1,6 +1,6 @@
 <header class="info-header">
     <h2>Grades</h2>
-    <p class="headerName"><?= $teacher->getName() . " " . $teacher->getSurname(); ?></p>
+    <p class="headerName"><?= $userWholeName; ?></p>
 </header>
 
 <div class="subject-filter">

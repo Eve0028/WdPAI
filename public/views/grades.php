@@ -1,3 +1,17 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_type']) || !isset($_SESSION['whole_name'])) {
+    $url = "http://$_SERVER[HTTP_HOST]";
+    header("Location: {$url}/login");
+} else {
+    $userWholeName = $_SESSION['whole_name'];
+    $userType = $_SESSION['user_type'];
+}
+?>
+
 <!DOCTYPE html>
 
 <head>
@@ -21,7 +35,9 @@
 
     <div class="container">
         <a class="back-to-dashboard" href="dashboard"><-</a>
-        <?php include __DIR__ . "/grades/{$userType}.php"; ?>
+        <?php
+        include __DIR__ . "/grades/{$userType}.php";
+        ?>
     </div>
 </div>
 </body>

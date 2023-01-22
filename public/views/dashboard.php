@@ -3,19 +3,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email']) || !isset($_SESSION['whole_name'])) {
     $url = "http://$_SERVER[HTTP_HOST]";
     header("Location: {$url}/login");
 } else {
-    $email = $_SESSION['email'];
-
-    require_once __DIR__ . '/../../src/repository/UserRepository.php';
-    $userRepository = new UserRepository();
-    try {
-        $user = $userRepository->getUser($email);
-    } catch (Exception $err) {
-        return $this->render('login', ['warnings' => [$err->getMessage()]]);
-    }
+    $userWholeName = $_SESSION['whole_name'];
 }
 ?>
 
@@ -38,7 +30,7 @@ if (!isset($_SESSION['email'])) {
         <a class="logo-link" href="dashboard">
             <h1 class="logo"><em class="logo-prefix">e</em>Diary</h1>
         </a>
-        <span><?= $user->getName()." ".$user->getSurname() ?></span>
+        <span><?= $userWholeName ?></span>
     </header>
     <a class="tile group-one" href="grades">
         <h3 class="tile-title">Grades</h3>
