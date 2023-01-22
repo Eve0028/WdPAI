@@ -8,6 +8,9 @@ $tiles-color: (
   group-four: rgba(255, 111, 105, 1)
 );
 
+// another elements colors
+$bad-input-color: #e92836;
+
 // fonts-family
 $logo-font: Amita;
 $header-font: Lato, sans-serif;
@@ -25,7 +28,7 @@ $background-img: url("/public/img/bg.png");
 
 // for media-query
 $breakpoints: (
-  small: 750px,
+  small: 786px,
   medium: 1100px,
   large: 1200px
 );

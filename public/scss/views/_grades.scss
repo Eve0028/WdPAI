@@ -19,6 +19,10 @@ header {
   }
 }
 
+.subject-filter{
+  text-align: right;
+}
+
 .container-tile-option .container {
   min-width: 35vw;
   margin: 1em 1em;
@@ -49,7 +53,7 @@ header {
     margin-right: 0.6em;
   }
 
-  .student-with-grades, .student-grades {
+  .student-with-grades, .student-grades, .student-grades-only {
     display: flex;
     flex-direction: row;
   }
