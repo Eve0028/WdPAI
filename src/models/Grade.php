@@ -1,6 +1,6 @@
 <?php
 
-class Grade
+class Grade implements JsonSerializable
 {
     private $grade;
     private $student;
@@ -15,6 +15,16 @@ class Grade
         $this->teacher = $teacher;
         $this->subjectWholeName = $subjectWholeName;
         $this->date = $date;
+    }
+
+    public function jsonSerialize() {
+        return [
+            'grade' => $this->getGrade(),
+            'student' => $this->getStudent(),
+            'teacher' => $this->getTeacher(),
+            'subjectWholeName' => $this->getSubjectWholeName(),
+            'date' => $this->getDate()
+        ];
     }
 
     public function getGrade(): int

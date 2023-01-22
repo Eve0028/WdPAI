@@ -12,10 +12,8 @@ class GradeRepository extends Repository
         $statement = $this->database->connect()->prepare('
             SELECT g.grade as grade, us.email as studentEmail, ut.email as teacherEmail, 
                    sub.whole_name as subjectName, g.date_ as date FROM grade g
-                LEFT JOIN student s ON s.student_id = g.student_id
-                    LEFT JOIN user_ us on us.user_id = s.user_id
-                LEFT JOIN teacher t on t.teacher_id = g.teacher_id
-                     LEFT JOIN user_ ut ON ut.user_id = t.user_id
+                LEFT JOIN user_ us on us.user_id = g.student_id
+                LEFT JOIN user_ ut ON ut.user_id = g.teacher_id
                 LEFT JOIN subject sub on g.subject_id = sub.subject_id
                 WHERE us.email = :email
         ');
@@ -27,18 +25,29 @@ class GradeRepository extends Repository
         return $this->getGrades($grades);
     }
 
-    public function getTeacherGrades(string $email): array
+    public function getTeacherGrades(string $email, string $subject = null): array
     {
-        $statement = $this->database->connect()->prepare('
+        if ($subject) {
+            $statement = $this->database->connect()->prepare('
             SELECT g.grade as grade, us.email as studentEmail, ut.email as teacherEmail, 
                    sub.whole_name as subjectName, g.date_ as date FROM grade g
-                LEFT JOIN student s ON s.student_id = g.student_id
-                    LEFT JOIN user_ us on us.user_id = s.user_id
-                LEFT JOIN teacher t on t.teacher_id = g.teacher_id
-                     LEFT JOIN user_ ut ON ut.user_id = t.user_id
+                LEFT JOIN user_ us on us.user_id = g.student_id
+                LEFT JOIN user_ ut ON ut.user_id = g.teacher_id
+                LEFT JOIN subject sub on g.subject_id = sub.subject_id
+                WHERE ut.email = :email AND sub.whole_name = :subject
+            ');
+            $statement->bindParam(':subject', $subject, PDO::PARAM_STR);
+        } else {
+            $statement = $this->database->connect()->prepare('
+            SELECT g.grade as grade, us.email as studentEmail, ut.email as teacherEmail, 
+                   sub.whole_name as subjectName, g.date_ as date FROM grade g
+                LEFT JOIN user_ us on us.user_id = g.student_id
+                LEFT JOIN user_ ut ON ut.user_id = g.teacher_id
                 LEFT JOIN subject sub on g.subject_id = sub.subject_id
                 WHERE ut.email = :email
-        ');
+            ');
+        }
+
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $statement->execute();
 
@@ -47,7 +56,26 @@ class GradeRepository extends Repository
         return $this->getGrades($grades);
     }
 
-    public function getGrades($grades): array
+    public function getTeacherGradesBySubject(string $email, string $subject = null): array
+    {
+        $statement = $this->database->connect()->prepare('
+            SELECT g.grade as grade, us.email as studentEmail, ut.email as teacherEmail, 
+                   sub.whole_name as subjectName, g.date_ as date FROM grade g
+                LEFT JOIN user_ us on us.user_id = g.student_id
+                LEFT JOIN user_ ut ON ut.user_id = g.teacher_id
+                LEFT JOIN subject sub on g.subject_id = sub.subject_id
+                WHERE ut.email = :email AND sub.whole_name = :subject
+            ');
+        $statement->bindParam(':subject', $subject, PDO::PARAM_STR);
+        $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $statement->execute();
+
+//        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        $grades = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $this->getGrades($grades);
+    }
+
+    private function getGrades($grades): array
     {
         $gradesResult = [];
         foreach ($grades as $grade) {
@@ -61,9 +89,4 @@ class GradeRepository extends Repository
         }
         return $gradesResult;
     }
-
-//    public function getGrade(int $grade, string $studentEmail, string $teacherEmail, string $subjectWholeName, DateTime $date)
-//    {
-//        $student =
-//    }
 }

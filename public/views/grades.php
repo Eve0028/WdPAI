@@ -7,6 +7,11 @@
     <link rel="stylesheet" type="text/css" href="/public/scss/main.css">
     <link href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Amita&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <?php
+    if ($userType === 'teacher') { ?>
+        <script type="text/javascript" src="./public/js/search-by-subject.js" defer></script>
+    <?php }
+    ?>
 </head>
 
 <body>
