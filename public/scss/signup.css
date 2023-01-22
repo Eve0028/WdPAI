@@ -142,6 +142,16 @@ input[type=date]:focus {
   background-color: #e9f3e9;
   color: #428c42;
 }
+input[type=text].no-valid,
+input[type=password].no-valid,
+input[type=email].no-valid,
+input[type=tel].no-valid,
+input[type=number].no-valid,
+input[type=date].no-valid {
+  border: 1px solid #e92836;
+  box-shadow: 0 0 0.2em #e92836;
+  outline: none;
+}
 
 .form-control {
   font-family: Lato, sans-serif;
@@ -181,12 +191,43 @@ input[type=date]:focus {
 }
 
 form input {
-  margin-top: 0.4em;
-  margin-bottom: 0.6em;
+  margin-top: 0.6em;
+  margin-bottom: 0.1em;
+  width: 100%;
 }
 form button {
   padding: 0.7em;
   margin-top: 0.4em;
+}
+form h3 {
+  padding: 0;
+}
+form .invalid-message {
+  color: #e92836;
+  overflow-wrap: normal;
+  max-width: 30rem;
+}
+form .line-in-form {
+  display: flex;
+  column-gap: 0.8em;
+}
+@media (max-width: 786px) {
+  form .line-in-form {
+    flex-flow: row wrap;
+  }
+}
+form .input-container {
+  width: 100%;
+}
+form .form-section {
+  padding: 1.2em 0;
+  border-bottom: 2px #dddddd solid;
+}
+form .form-section:last-of-type {
+  border-bottom: none;
+}
+form .radio-group {
+  padding-top: 0.6em;
 }
 
 .container {
@@ -246,12 +287,8 @@ header {
 }
 header h2 {
   text-align: left;
-}
-
-.line-in-form {
-  display: flex;
-  flex-flow: row wrap;
-  column-gap: 0.8em;
+  border-bottom: 1px rgb(54, 176, 60) solid;
+  margin-bottom: 0.4em;
 }
 
 a.login {
@@ -259,7 +296,6 @@ a.login {
 }
 
 .radio-group {
-  margin-bottom: 1em;
   display: flex;
   flex-flow: row wrap;
   column-gap: 1.5em;

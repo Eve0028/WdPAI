@@ -1,3 +1,17 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_type']) || !isset($_SESSION['whole_name'])) {
+    $url = "http://$_SERVER[HTTP_HOST]";
+    header("Location: {$url}/login");
+} else {
+    $userWholeName = $_SESSION['whole_name'];
+    $userType = $_SESSION['user_type'];
+}
+?>
+
 <!DOCTYPE html>
 
 <head>
@@ -7,6 +21,11 @@
     <link rel="stylesheet" type="text/css" href="/public/scss/main.css">
     <link href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Amita&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <?php
+    if ($userType === 'teacher') { ?>
+        <script type="text/javascript" src="./public/js/search-by-subject.js" defer></script>
+    <?php }
+    ?>
 </head>
 
 <body>
@@ -16,7 +35,9 @@
 
     <div class="container">
         <a class="back-to-dashboard" href="dashboard"><-</a>
-        <?php include __DIR__ . "/grades/{$userType}.php"; ?>
+        <?php
+        include __DIR__ . "/grades/{$userType}.php";
+        ?>
     </div>
 </div>
 </body>

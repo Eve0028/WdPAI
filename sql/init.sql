@@ -25,8 +25,8 @@ CREATE TABLE address
 );
 
 INSERT INTO address (postal_code, street, locality, number)
-VALUES ('postal_code1', 'street1', 'locality1', 'number1'),
-       ('postal_code2', 'street2', 'locality2', 'number2');
+VALUES ('postal_code1', 'street1', 'locality1', 1),
+       ('postal_code2', 'street2', 'locality2', 2);
 
 
 DROP TABLE IF EXISTS gender;
@@ -101,6 +101,7 @@ VALUES ('Grzegorz', 'Inny', '05241686211', '2008-04-16', 'Wrocław', 2, '9899372
 /*23 - teachers*/
        ('Adam', 'Holmes', '70122597692', '1970-12-25', 'Oleśnica', 2, '734865238', 2);
 
+
 DROP TABLE IF EXISTS user_type;
 
 CREATE TABLE user_type
@@ -143,6 +144,7 @@ VALUES (22, 3, '$2y$10$V.ajrG1rUZtKbOuPMQGJzufRHf6pZ1ZaY6SDyAYcMKHSnqG6OqW/2', '
        (2, 2, '$2y$10$HXX77CSD0izDT61WFGx8POBRIOSoRncvz5v3Kh.7Y5z2DSEf8tRMG', 'kasia_u@gmail.com', '2022-08-15'),
        (4, 2, '$2y$10$gqID8u9x4ACzsfF6oD3rD.8HBCrkO1AEhw7jwUSMLh3H8xiptbCo.', 'julia_u@gmail.com', '2022-08-15'),
        (23, 1, '$2y$10$0gxpacYmYQ1feEtKcISLF.9ADWzBsRtiLM6Qn0BTakoA5PvQxvzfW', 'adam_n@gmail.com', '2022-08-15');
+
 /*p, s, s, s, t*/
 
 
@@ -171,23 +173,6 @@ VALUES ('math', 'Mathematics'),
        ('IT', 'Information Technology');
 
 
-DROP TABLE IF EXISTS teacher;
-
-CREATE TABLE teacher
-(
-    teacher_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
-    user_id    integer NOT NULL,
-
-    CONSTRAINT fk_user
-        FOREIGN KEY (user_id)
-            REFERENCES user_ (user_id)
-            on update cascade on delete cascade
-);
-
-INSERT INTO teacher (user_id)
-VALUES (5);
-
-
 CREATE TABLE teacher_subject
 (
     teacher_subject_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
@@ -196,7 +181,7 @@ CREATE TABLE teacher_subject
 
     CONSTRAINT fk_teacher
         FOREIGN KEY (teacher_id)
-            REFERENCES teacher (teacher_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade,
     CONSTRAINT fk_subject
         FOREIGN KEY (subject_id)
@@ -204,22 +189,20 @@ CREATE TABLE teacher_subject
             on update cascade on delete cascade
 );
 
-
-DROP TABLE IF EXISTS parent;
-
-CREATE TABLE parent
-(
-    parent_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
-    user_id   integer NOT NULL,
-
-    CONSTRAINT fk_user
-        FOREIGN KEY (user_id)
-            REFERENCES user_ (user_id)
-            on update cascade on delete cascade
-);
-
-INSERT INTO parent (user_id)
-VALUES (1);
+INSERT INTO teacher_subject(teacher_id, subject_id)
+VALUES (5, 1),
+       (5, 2),
+       (5, 3),
+       (5, 4),
+       (5, 5),
+       (5, 6),
+       (5, 7),
+       (5, 8),
+       (5, 9),
+       (5, 10),
+       (5, 11),
+       (5, 12),
+       (5, 13);
 
 
 /* class - list of students */
@@ -234,45 +217,60 @@ CREATE TABLE class
 
     CONSTRAINT fk_class_teacher
         FOREIGN KEY (class_teacher)
-            REFERENCES teacher (teacher_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade
 );
 
 INSERT INTO class (class_name, grade, class_teacher)
-VALUES ('1a', 1, 1),
-       ('1b', 1, 1),
-       ('2a', 2, 1),
-       ('2c', 2, 1),
-       ('3b', 3, 1);
+VALUES ('1a', 1, 5),
+       ('1b', 1, 5),
+       ('2a', 2, 5),
+       ('2c', 2, 5),
+       ('3b', 3, 5);
 
 
-DROP TABLE IF EXISTS student;
-
-CREATE TABLE student
+CREATE TABLE student_class
 (
-    student_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
-    user_id    integer NOT NULL,
-    class_id   integer NOT NULL,
-    parent_id  integer NOT NULL,
+    student_class_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
+    student_id       integer NOT NULL,
+    class_id         integer NOT NULL,
 
-    CONSTRAINT fk_user
-        FOREIGN KEY (user_id)
+    CONSTRAINT fk_student
+        FOREIGN KEY (student_id)
             REFERENCES user_ (user_id)
             on update cascade on delete cascade,
     CONSTRAINT fk_class
         FOREIGN KEY (class_id)
             REFERENCES class (class_id)
-            on update cascade on delete cascade,
-    CONSTRAINT fk_parent
-        FOREIGN KEY (parent_id)
-            REFERENCES parent (parent_id)
             on update cascade on delete cascade
 );
 
-INSERT INTO student (user_id, class_id, parent_id)
-VALUES (2, 1, 1),
-       (3, 2, 1),
-       (4, 1, 1);
+INSERT INTO student_class(student_id, class_id)
+VALUES (2, 1),
+       (3, 1),
+       (5, 1);
+
+
+CREATE TABLE student_parent
+(
+    student_parent_id integer NOT NULL primary key GENERATED ALWAYS AS IDENTITY,
+    student_id         integer NOT NULL,
+    parent_id         integer NOT NULL,
+
+    CONSTRAINT fk_student
+        FOREIGN KEY (student_id)
+            REFERENCES user_ (user_id)
+            on update cascade on delete cascade,
+    CONSTRAINT fk_parent
+        FOREIGN KEY (parent_id)
+            REFERENCES user_ (user_id)
+            on update cascade on delete cascade
+);
+
+INSERT INTO student_parent(student_id, parent_id)
+VALUES (2, 1),
+       (3, 1),
+       (5, 1);
 
 
 DROP TABLE IF EXISTS lesson_hour;
@@ -328,23 +326,23 @@ CREATE TABLE classroom
             on update cascade on delete cascade,
     CONSTRAINT fk_teacher
         FOREIGN KEY (teacher_id)
-            REFERENCES teacher (teacher_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade
 );
 
 INSERT INTO classroom (classroom_name, subject_id, teacher_id)
-VALUES ('r5', 1, 1),
-       ('r6', 2, 1),
-       ('r7', 3, 1),
-       ('r8', 4, 1),
-       ('r9', 5, 1),
-       ('r12', 6, 1),
-       ('r13', 7, 1),
-       ('r14', 8, 1),
-       ('rg', 9, 1),
-       ('r15', 10, 1),
-       ('r16', 11, 1),
-       ('r17', 12, 1);
+VALUES ('r5', 1, 5),
+       ('r6', 2, 5),
+       ('r7', 3, 5),
+       ('r8', 4, 5),
+       ('r9', 5, 5),
+       ('r12', 6, 5),
+       ('r13', 7, 5),
+       ('r14', 8, 5),
+       ('rg', 9, 5),
+       ('r15', 10, 5),
+       ('r16', 11, 5),
+       ('r17', 12, 5);
 
 
 DROP TABLE IF EXISTS timetable;
@@ -364,7 +362,7 @@ CREATE TABLE timetable
             on update cascade on delete cascade,
     CONSTRAINT fk_teacher
         FOREIGN KEY (teacher_id)
-            REFERENCES teacher (teacher_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade,
     CONSTRAINT fk_classroom
         FOREIGN KEY (classroom_id)
@@ -381,68 +379,68 @@ CREATE TABLE timetable
 );
 
 INSERT INTO timetable (lesson_id, day_of_week, lesson_number, class_id, teacher_id, classroom_id)
-VALUES (1, 1, 1, 1, 1, 2),
-       (2, 1, 2, 1, 1, 2),
-       (3, 1, 3, 1, 1, 6),
-       (4, 1, 4, 1, 1, 1),
-       (5, 1, 5, 1, 1, 5),
-       (6, 1, 6, 1, 1, 5),
-       (7, 1, 7, 1, 1, 11),
-       (8, 2, 3, 1, 1, 1),
-       (9, 2, 4, 1, 1, 3),
-       (10, 2, 5, 1, 1, 2),
-       (11, 2, 6, 1, 1, 7),
-       (12, 2, 7, 1, 1, 9),
-       (13, 2, 8, 1, 1, 9),
-       (14, 3, 2, 1, 1, 3),
-       (15, 3, 3, 1, 1, 11),
-       (16, 3, 4, 1, 1, 4),
-       (17, 3, 5, 1, 1, 1),
-       (18, 3, 6, 1, 1, 6),
-       (19, 3, 7, 1, 1, 8),
-       (20, 4, 2, 1, 1, 5),
-       (21, 4, 3, 1, 1, 12),
-       (22, 4, 4, 1, 1, 2),
-       (23, 4, 5, 1, 1, 8),
-       (24, 4, 6, 1, 1, 7),
-       (25, 5, 1, 1, 1, 9),
-       (26, 5, 2, 1, 1, 9),
-       (27, 5, 3, 1, 1, 1),
-       (28, 5, 4, 1, 1, 4),
-       (29, 5, 5, 1, 1, 2),
-       (30, 5, 6, 1, 1, 11),
-       (31, 5, 7, 1, 1, 3),
-       (32, 1, 2, 2, 1, 7),
-       (33, 1, 3, 2, 1, 2),
-       (34, 1, 4, 2, 1, 5),
-       (35, 1, 5, 2, 1, 1),
-       (36, 1, 6, 2, 1, 11),
-       (37, 1, 7, 2, 1, 3),
-       (38, 2, 1, 2, 1, 6),
-       (39, 2, 2, 2, 1, 1),
-       (40, 2, 3, 2, 1, 3),
-       (41, 2, 4, 2, 1, 2),
-       (42, 2, 5, 2, 1, 9),
-       (43, 2, 6, 2, 1, 9),
-       (44, 3, 2, 2, 1, 11),
-       (45, 3, 3, 2, 1, 4),
-       (46, 3, 4, 2, 1, 2),
-       (47, 3, 5, 2, 1, 6),
-       (48, 3, 6, 2, 1, 8),
-       (49, 4, 1, 2, 1, 1),
-       (50, 4, 2, 2, 1, 12),
-       (51, 4, 3, 2, 1, 2),
-       (52, 4, 4, 2, 1, 8),
-       (53, 4, 5, 2, 1, 2),
-       (54, 4, 6, 2, 1, 3),
-       (55, 4, 7, 2, 1, 7),
-       (56, 5, 2, 2, 1, 5),
-       (57, 5, 3, 2, 1, 9),
-       (58, 5, 4, 2, 1, 9),
-       (59, 5, 5, 2, 1, 1),
-       (60, 5, 6, 2, 1, 4),
-       (61, 5, 7, 2, 1, 2),
-       (62, 5, 8, 2, 1, 11);
+VALUES (1, 1, 1, 1, 5, 2),
+       (2, 1, 2, 1, 5, 2),
+       (3, 1, 3, 1, 5, 6),
+       (4, 1, 4, 1, 5, 1),
+       (5, 1, 5, 1, 5, 5),
+       (6, 1, 6, 1, 5, 5),
+       (7, 1, 7, 1, 5, 11),
+       (8, 2, 3, 1, 5, 1),
+       (9, 2, 4, 1, 5, 3),
+       (10, 2, 5, 1, 5, 2),
+       (11, 2, 6, 1, 5, 7),
+       (12, 2, 7, 1, 5, 9),
+       (13, 2, 8, 1, 5, 9),
+       (14, 3, 2, 1, 5, 3),
+       (15, 3, 3, 1, 5, 11),
+       (16, 3, 4, 1, 5, 4),
+       (17, 3, 5, 1, 5, 1),
+       (18, 3, 6, 1, 5, 6),
+       (19, 3, 7, 1, 5, 8),
+       (20, 4, 2, 1, 5, 5),
+       (21, 4, 3, 1, 5, 12),
+       (22, 4, 4, 1, 5, 2),
+       (23, 4, 5, 1, 5, 8),
+       (24, 4, 6, 1, 5, 7),
+       (25, 5, 1, 1, 5, 9),
+       (26, 5, 2, 1, 5, 9),
+       (27, 5, 3, 1, 5, 1),
+       (28, 5, 4, 1, 5, 4),
+       (29, 5, 5, 1, 5, 2),
+       (30, 5, 6, 1, 5, 11),
+       (31, 5, 7, 1, 5, 3),
+       (32, 1, 2, 2, 5, 7),
+       (33, 1, 3, 2, 5, 2),
+       (34, 1, 4, 2, 5, 5),
+       (35, 1, 5, 2, 5, 1),
+       (36, 1, 6, 2, 5, 11),
+       (37, 1, 7, 2, 5, 3),
+       (38, 2, 1, 2, 5, 6),
+       (39, 2, 2, 2, 5, 1),
+       (40, 2, 3, 2, 5, 3),
+       (41, 2, 4, 2, 5, 2),
+       (42, 2, 5, 2, 5, 9),
+       (43, 2, 6, 2, 5, 9),
+       (44, 3, 2, 2, 5, 11),
+       (45, 3, 3, 2, 5, 4),
+       (46, 3, 4, 2, 5, 2),
+       (47, 3, 5, 2, 5, 6),
+       (48, 3, 6, 2, 5, 8),
+       (49, 4, 1, 2, 5, 1),
+       (50, 4, 2, 2, 5, 12),
+       (51, 4, 3, 2, 5, 2),
+       (52, 4, 4, 2, 5, 8),
+       (53, 4, 5, 2, 5, 2),
+       (54, 4, 6, 2, 5, 3),
+       (55, 4, 7, 2, 5, 7),
+       (56, 5, 2, 2, 5, 5),
+       (57, 5, 3, 2, 5, 9),
+       (58, 5, 4, 2, 5, 9),
+       (59, 5, 5, 2, 5, 1),
+       (60, 5, 6, 2, 5, 4),
+       (61, 5, 7, 2, 5, 2),
+       (62, 5, 8, 2, 5, 11);
 
 
 DROP TABLE IF EXISTS type_of_presence;
@@ -481,7 +479,7 @@ CREATE TABLE presence
             on update cascade on delete cascade,
     CONSTRAINT fk_student
         FOREIGN KEY (student_id)
-            REFERENCES student (student_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade,
     CONSTRAINT fk_type
         FOREIGN KEY (type)
@@ -490,9 +488,9 @@ CREATE TABLE presence
 );
 
 INSERT INTO presence (lesson_id, student_id, date_, type)
-VALUES (1, 3, '2022-12-05', 'pr'),
-       (1, 1, '2023-01-03', 'ab'),
-       (8, 1, '2022-12-08', 'l'),
+VALUES (1, 2, '2022-12-05', 'pr'),
+       (1, 2, '2023-01-03', 'ab'),
+       (8, 2, '2022-12-08', 'l'),
        (32, 2, '2019-05-13', 'as'),
        (33, 2, '2019-05-13', 'l');
 
@@ -528,11 +526,11 @@ CREATE TABLE grade
 
     CONSTRAINT fk_student
         FOREIGN KEY (student_id)
-            REFERENCES student (student_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade,
     CONSTRAINT fk_teacher
         FOREIGN KEY (teacher_id)
-            REFERENCES teacher (teacher_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade,
     CONSTRAINT fk_subject
         FOREIGN KEY (subject_id)
@@ -545,16 +543,16 @@ CREATE TABLE grade
 );
 
 INSERT INTO grade (grade, student_id, teacher_id, subject_id, date_)
-VALUES (3, 2, 1, 3, '2019-04-15'),
-       (3, 1, 1, 1, '2019-05-02'),
-       (4, 3, 1, 3, '2019-03-14'),
-       (5, 1, 1, 3, '2019-04-24'),
-       (4, 3, 1, 12, '2019-04-22'),
-       (1, 2, 1, 12, '2019-04-12'),
-       (2, 1, 1, 1, '2019-05-06'),
-       (3, 2, 1, 3, '2019-04-18'),
-       (6, 3, 1, 9, '2019-04-02'),
-       (4, 1, 1, 1, '2019-03-15');
+VALUES (3, 2, 5, 3, '2019-04-15'),
+       (3, 2, 5, 1, '2019-05-02'),
+       (4, 2, 5, 3, '2019-03-14'),
+       (5, 2, 5, 3, '2019-04-24'),
+       (4, 2, 5, 12, '2019-04-22'),
+       (1, 2, 5, 12, '2019-04-12'),
+       (2, 2, 5, 1, '2019-05-06'),
+       (3, 2, 5, 3, '2019-04-18'),
+       (6, 2, 5, 9, '2019-04-02'),
+       (4, 2, 5, 1, '2019-03-15');
 
 
 DROP TABLE IF EXISTS grade_description;
@@ -598,13 +596,13 @@ CREATE TABLE test
             on update cascade on delete cascade,
     CONSTRAINT fk_teacher
         FOREIGN KEY (teacher_id)
-            REFERENCES teacher (teacher_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade
 );
 
 INSERT INTO test (class_id, subject_id, type_of_test, teacher_id, date_of_test, date_of_entry)
-VALUES (1, 1, 'quiz', 1, '2019-05-01', '2019-04-15'),
-       (1, 5, 'test', 1, '2019-06-06', '2019-05-23');
+VALUES (1, 1, 'quiz', 5, '2019-05-01', '2019-04-15'),
+       (1, 5, 'test', 5, '2019-06-06', '2019-05-23');
 
 
 DROP TABLE IF EXISTS test_description;
@@ -651,11 +649,11 @@ CREATE TABLE note
 
     CONSTRAINT fk_student
         FOREIGN KEY (student_id)
-            REFERENCES student (student_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade,
     CONSTRAINT fk_teacher
         FOREIGN KEY (teacher_id)
-            REFERENCES teacher (teacher_id)
+            REFERENCES user_ (user_id)
             on update cascade on delete cascade,
     CONSTRAINT fk_type
         FOREIGN KEY (type)
@@ -664,9 +662,9 @@ CREATE TABLE note
 );
 
 INSERT INTO note (student_id, teacher_id, type, content, date_)
-VALUES (1, 1, 1, 'Took part in school open days', '2022-04-15'),
-       (2, 1, 2, 'He disturbed in the class', '2022-04-09'),
-       (3, 1, 1, 'He helped clean the gym after the spectacle', '2022-04-22');
+VALUES (2, 5, 1, 'Took part in school open days', '2022-04-15'),
+       (2, 5, 2, 'He disturbed in the class', '2022-04-09'),
+       (2, 5, 1, 'He helped clean the gym after the spectacle', '2022-04-22');
 
 
 DROP TABLE IF EXISTS school;

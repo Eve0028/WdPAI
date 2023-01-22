@@ -1,6 +1,6 @@
 <header class="info-header">
     <h2>Grades</h2>
-    <p class="headerName"><?= $student->getName() . " " . $student->getSurname() . " - " . $class->getClassName(); ?></p>
+    <p class="headerName"><?= $userWholeName . " - " . $_SESSION['student_class'];; ?></p>
 </header>
 
 <?php

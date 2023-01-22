@@ -33,13 +33,9 @@ header {
 
   h2 {
     text-align: left;
+    border-bottom: 1px v.$primary-color solid;
+    margin-bottom: 0.4em;
   }
-}
-
-.line-in-form {
-  display: flex;
-  flex-flow: row wrap;
-  column-gap: 0.8em;
 }
 
 a.login{
@@ -47,7 +43,7 @@ a.login{
 }
 
 .radio-group{
-  margin-bottom: 1em;
+  //margin-bottom: 1em;
   display: flex;
   flex-flow: row wrap;
   column-gap: 1.5em;

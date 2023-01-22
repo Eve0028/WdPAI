@@ -26,7 +26,7 @@ class Routing
             die("Wrong url!");
         }
         if(empty($action)){
-            $action = 'index';
+            $action = 'login';
         }
 
         $controller = self::$routes[$action];

@@ -5,7 +5,7 @@ input[type='password'],
 input[type='email'],
 input[type='tel'],
 input[type='number'],
-input[type='date']{
+input[type='date'] {
   background-color: #efefef;
   color: v.$font-input-color;
   border: 2px solid #ddd;
@@ -23,5 +23,11 @@ input[type='date']{
     border: 2px solid #a5cda5;
     background-color: #e9f3e9;
     color: v.$font-input-hover-color;
+  }
+
+  &.no-valid {
+    border: 1px solid v.$bad-input-color;
+    box-shadow: 0 0 0.2em v.$bad-input-color;
+    outline: none;
   }
 }

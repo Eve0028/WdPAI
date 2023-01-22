@@ -4,15 +4,18 @@ require_once 'AppController.php';
 require_once __DIR__ . '/../models/user/User.php';
 require_once __DIR__ . '/../repository/UserRepository.php';
 require_once __DIR__ . '/../repository/SignupDataRepository.php';
+require_once __DIR__ . '/../repository/ClassRepository.php';
 
 class SecurityController extends AppController
 {
     private UserRepository $userRepository;
+    private ClassRepository $classRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->userRepository = new UserRepository();
+        $this->classRepository = new ClassRepository();
     }
 
     public function login()
@@ -41,6 +44,13 @@ class SecurityController extends AppController
         // session_start();
         setcookie(session_name(), session_id(), time() + 3600);
         $_SESSION['email'] = $email;
+        $_SESSION['whole_name'] = $user->getName() . " " . $user->getSurname();
+        $_SESSION['user_type'] = $user->getUserType();
+        if($_SESSION['user_type'] === "student"){
+            $studentClass = $this->classRepository->getStudentClass($email);
+            $_SESSION['student_class'] = $studentClass->getClassName();
+        }
+
         return $this->render('dashboard');
     }
 
@@ -103,7 +113,6 @@ class SecurityController extends AppController
         );
 
         $this->userRepository->addUser($user);
-        //TODO add TypeOfUser to second table (student, teacher or parent)
 
         return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
     }

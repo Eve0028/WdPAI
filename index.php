@@ -11,12 +11,13 @@ if (session_status() === PHP_SESSION_NONE) {
 
 Routing::get('', 'DefaultController');
 Routing::get('index', 'DefaultController');
+Routing::get('dashboard', 'DefaultController');
+
 Routing::post('login', 'SecurityController');
 Routing::get('signup', 'SecurityController');
 Routing::get('logout', 'SecurityController');
 
-Routing::get('dashboard', 'DefaultController');
 Routing::get('grades', 'GradesController');
-//Routing::get('grades', 'DefaultController');
+Routing::get('filtersub', 'GradesController');
 
 Routing::run($path);

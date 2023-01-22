@@ -1,11 +1,50 @@
+@use '../utils/variables' as v;
+@use '../utils/mixins' as mix;
+
 form {
   input {
-    margin-top: 0.4em;
-    margin-bottom: 0.6em;
+    margin-top: 0.6em;
+    margin-bottom: 0.1em;
+    width: 100%;
   }
 
   button {
     padding: 0.7em;
     margin-top: 0.4em;
+  }
+
+  h3 {
+    padding: 0;
+  }
+
+  .invalid-message {
+    color: v.$bad-input-color;
+    overflow-wrap: normal;
+    max-width: 30rem;
+  }
+
+  .line-in-form {
+    display: flex;
+    column-gap: 0.8em;
+
+    @include mix.respond-to(small) {
+      flex-flow: row wrap;
+    }
+  }
+
+  .input-container {
+    width: 100%;
+  }
+
+  .form-section {
+    padding: 1.2em 0;
+    border-bottom: 2px #dddddd solid;
+    &:last-of-type{
+      border-bottom: none;
+    }
+  }
+
+  .radio-group {
+    padding-top: 0.6em;
   }
 }
