@@ -110,7 +110,7 @@ body > * {
   font-weight: 600;
   text-align: center;
   letter-spacing: 0;
-  padding-bottom: 0.3em;
+  padding-bottom: 0.2em;
   color: #111;
 }
 .logo::first-letter {
@@ -255,7 +255,7 @@ form input {
 }
 form button {
   padding: 0.7em;
-  margin-top: 0.4em;
+  margin-top: 0.6em;
 }
 form h3 {
   padding: 0;
@@ -428,9 +428,10 @@ header.info-header {
   padding-bottom: 0.6em;
   margin-bottom: 2em;
 }
-header h2 {
+header.info-header h2 {
   padding-bottom: 0.2em;
   padding-right: 1em;
+  border-bottom: none;
 }
 
 .subject-filter {
@@ -466,29 +467,39 @@ header h2 {
   display: flex;
   flex-direction: row;
 }
-.container-tile-option .container .student-with-grades {
-  justify-content: space-between;
-}
-.container-tile-option .container .subject-name {
-  color: rgb(54, 176, 60);
-}
-.container-tile-option .container .one-class {
-  font-weight: 500;
-  padding-bottom: 0.2em;
-}
-.container-tile-option .container .teacher-one-subject {
-  padding-top: 1em;
+
+.teacher-one-subject {
+  padding-top: 1.4em;
   padding-bottom: 0.6em;
   border-bottom: gray 1px solid;
 }
-.container-tile-option .container .class-with-students {
+.teacher-one-subject .subject-name {
+  color: rgb(54, 176, 60);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.teacher-one-subject .one-class {
+  font-weight: 600;
+  padding-bottom: 0.2em;
+}
+.teacher-one-subject .student-with-grades {
+  justify-content: space-between;
+  padding: 0.4em 0.4em;
+}
+.teacher-one-subject .student-with-grades:nth-child(even) {
+  background-color: #e7facd;
+}
+.teacher-one-subject .class-with-students {
   padding: 1em 0;
 }
-.container-tile-option .container .class-with-students:not(:last-child) {
+.teacher-one-subject .class-with-students:not(:last-child) {
   border-bottom: gray 1px dashed;
 }
-.container-tile-option .container .all-student-in-class {
+.teacher-one-subject .all-student-in-class {
   padding-left: 0.5em;
+}
+.teacher-one-subject .student-grades-only > .one-grade {
+  margin-right: 0.6em;
 }
 
 .back-to-dashboard {

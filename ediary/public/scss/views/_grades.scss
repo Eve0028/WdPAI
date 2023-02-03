@@ -11,18 +11,20 @@ header {
     border-bottom: 2px black solid;
     padding-bottom: 0.6em;
     margin-bottom: 2em;
-  }
 
-  h2 {
-    padding-bottom: 0.2em;
-    padding-right: 1em;
+    h2 {
+      padding-bottom: 0.2em;
+      padding-right: 1em;
+      border-bottom: none;
+    }
   }
 }
 
-.subject-filter{
+.subject-filter {
   text-align: right;
 }
 
+// student view
 .container-tile-option .container {
   min-width: 35vw;
   margin: 1em 1em;
@@ -57,35 +59,51 @@ header {
     display: flex;
     flex-direction: row;
   }
+}
 
-  .student-with-grades{
-    justify-content: space-between;
-  }
+// teacher view
+.teacher-one-subject {
+  padding-top: 1.4em;
+  padding-bottom: 0.6em;
+  border-bottom: gray 1px solid;
 
-  .subject-name{
+  .subject-name {
     color: v.$primary-color;
+    font-weight: 600;
+    letter-spacing: 0.05em;
   }
 
-  .one-class{
-    font-weight: 500;
+  .one-class {
+    font-weight: 600;
     padding-bottom: 0.2em;
   }
 
-  .teacher-one-subject{
-    padding-top: 1em;
-    padding-bottom: 0.6em;
-    border-bottom: gray 1px solid;
+  .student-with-grades {
+    justify-content: space-between;
+    padding: 0.4em 0.4em;
+
+    &:nth-child(even) {
+      background-color: v.$primary-background-color;
+    }
+    &:nth-child(odd) {
+      //background-color: ;
+    }
   }
 
-  .class-with-students{
-    &:not(:last-child){
+  .class-with-students {
+    &:not(:last-child) {
       border-bottom: gray 1px dashed;
     }
+
     padding: 1em 0;
   }
 
-  .all-student-in-class{
+  .all-student-in-class {
     padding-left: 0.5em;
+  }
+
+  .student-grades-only > .one-grade {
+    margin-right: 0.6em;
   }
 }
 

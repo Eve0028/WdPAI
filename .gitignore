@@ -1,10 +1,11 @@
-.idea
-/vendor/
-/db-data/
-config.php
-docker/php/conf.d/error_reporting.ini
-docker/php/conf.d/xdebug.ini
+*.idea
+ediary/vendor/
+ediary/db-data/
+ediary/config.php
+ediary/docker-compose-prod.yml
+ediary/docker/php/conf.d/error_reporting.ini
+ediary/docker/php/conf.d/xdebug.ini
 
-.sass-cache/
+ediary/.sass-cache/
 *.css.map
 *.scss.map

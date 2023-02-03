@@ -140,10 +140,11 @@ CREATE TABLE user_
 
 INSERT INTO user_ (user_details_id, user_type_id, password_, email, created_at)
 VALUES (22, 3, '$2y$10$V.ajrG1rUZtKbOuPMQGJzufRHf6pZ1ZaY6SDyAYcMKHSnqG6OqW/2', 'stefan_r@gmail.com', '2022-08-15'),
-       (1, 2, '$2y$10$HWn28CH35AEw13Z1y0YeFeL2NXWL0btylGfc1UMwaQJZPUTMt8//i', 'grzegorz_u@gmail.com', '2022-08-15'),
-       (2, 2, '$2y$10$HXX77CSD0izDT61WFGx8POBRIOSoRncvz5v3Kh.7Y5z2DSEf8tRMG', 'kasia_u@gmail.com', '2022-08-15'),
-       (4, 2, '$2y$10$gqID8u9x4ACzsfF6oD3rD.8HBCrkO1AEhw7jwUSMLh3H8xiptbCo.', 'julia_u@gmail.com', '2022-08-15'),
-       (23, 1, '$2y$10$0gxpacYmYQ1feEtKcISLF.9ADWzBsRtiLM6Qn0BTakoA5PvQxvzfW', 'adam_n@gmail.com', '2022-08-15');
+       (1, 2, '$2a$12$nn5JCiVsL9crgl1PfW/wxukAQHLLaUBFfR.v9JBx5YibYDbYxWbPC', 'grzegorz_u@gmail.com', '2022-08-15'),
+       (2, 2, '$2a$12$b5FSLKEAQ7F7cbAZ5KwtR.7G2GRF568cpHIRXUrA54E.yURWndF9e', 'kasia_u@gmail.com', '2022-08-15'),
+       (4, 2, '$2a$12$upCVm15KnSPbgm6JafbG0.HWmkIZdY4PnOrjFbD272w7rKhIfEUSe', 'julia_u@gmail.com', '2022-08-15'),
+       (23, 1, '$2a$12$uWPe6FkK0asQQkBWYoC/OuFJHIbhcEU/CPWjpvhH/Y6uhLApC4Iya', 'adam_n@gmail.com', '2022-08-15'),
+       (3, 2, '$2a$12$uWPe6FkK0asQQkBWYoC/OuFJHIbhcEU/CPWjpvhH/Y6uhLApC4Iya', 'jakub_n@gmail.com', '2022-08-15');
 
 /*p, s, s, s, t*/
 
@@ -248,7 +249,8 @@ CREATE TABLE student_class
 INSERT INTO student_class(student_id, class_id)
 VALUES (2, 1),
        (3, 1),
-       (5, 1);
+       (4, 1),
+       (6, 1);
 
 
 CREATE TABLE student_parent
@@ -270,7 +272,8 @@ CREATE TABLE student_parent
 INSERT INTO student_parent(student_id, parent_id)
 VALUES (2, 1),
        (3, 1),
-       (5, 1);
+       (4, 1),
+       (6, 1);
 
 
 DROP TABLE IF EXISTS lesson_hour;
@@ -552,7 +555,37 @@ VALUES (3, 2, 5, 3, '2019-04-15'),
        (2, 2, 5, 1, '2019-05-06'),
        (3, 2, 5, 3, '2019-04-18'),
        (6, 2, 5, 9, '2019-04-02'),
-       (4, 2, 5, 1, '2019-03-15');
+       (4, 2, 5, 1, '2019-03-15'),
+       (5, 3, 5, 3, '2019-04-15'),
+       (2, 3, 5, 1, '2019-05-02'),
+       (3, 3, 5, 3, '2019-03-14'),
+       (5, 3, 5, 3, '2019-04-24'),
+       (1, 3, 5, 12, '2019-04-22'),
+       (4, 3, 5, 11, '2019-04-12'),
+       (3, 3, 5, 1, '2019-05-06'),
+       (3, 3, 5, 5, '2019-04-18'),
+       (5, 3, 5, 9, '2019-04-02'),
+       (3, 3, 5, 8, '2019-03-15'),
+       (4, 4, 5, 7, '2019-04-15'),
+       (1, 4, 5, 1, '2019-05-02'),
+       (1, 4, 5, 3, '2019-03-14'),
+       (2, 4, 5, 3, '2019-04-24'),
+       (3, 4, 5, 5, '2019-04-22'),
+       (4, 4, 5, 12, '2019-04-12'),
+       (2, 4, 5, 4, '2019-05-06'),
+       (5, 4, 5, 2, '2019-04-18'),
+       (4, 4, 5, 9, '2019-04-02'),
+       (5, 4, 5, 1, '2019-03-15'),
+       (4, 6, 5, 2, '2019-04-15'),
+       (1, 6, 5, 3, '2019-05-02'),
+       (1, 6, 5, 4, '2019-03-14'),
+       (2, 6, 5, 4, '2019-04-24'),
+       (3, 6, 5, 4, '2019-04-22'),
+       (4, 6, 5, 5, '2019-04-12'),
+       (2, 6, 5, 5, '2019-05-06'),
+       (5, 6, 5, 11, '2019-04-18'),
+       (4, 6, 5, 12, '2019-04-02'),
+       (5, 6, 5, 1, '2019-03-15');
 
 
 DROP TABLE IF EXISTS grade_description;
