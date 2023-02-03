@@ -112,7 +112,11 @@ class SecurityController extends AppController
             false
         );
 
-        $this->userRepository->addUser($user);
+        try{
+            $this->userRepository->addUser($user);
+        } catch (PDOException $err) {
+            return $this->render('signup', ['messages' => ['Something went wrong. Please try again later.']]);
+        }
 
         return $this->render('login', ['messages' => ['You\'ve been succesfully registrated!']]);
     }

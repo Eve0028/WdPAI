@@ -50,64 +50,68 @@ class UserRepository extends Repository
     {
         $date = new DateTime();
 
-        //TODO
-        // Add transaction system - add all or nothing
-        // Add exception
+        $connection = $this->database->connect();
+        try {
+            $connection->beginTransaction();
 
-        // Add user address
-        $statement = $this->database->connect()->prepare('
+            // Add user address
+            $statement = $connection->prepare('
             INSERT INTO address (postal_code, street, locality, number)
             VALUES (?, ?, ?, ?)
-        ');
+            ');
 
-        $statement->execute([
-            $user->getAddress()->getPostalCode(),
-            $user->getAddress()->getStreet(),
-            $user->getAddress()->getLocality(),
-            $user->getAddress()->getNumber()
-        ]);
+            $statement->execute([
+                $user->getAddress()->getPostalCode(),
+                $user->getAddress()->getStreet(),
+                $user->getAddress()->getLocality(),
+                $user->getAddress()->getNumber()
+            ]);
 
 
-        // Add user_details
-        //TODO
-        // Add Caps letters (in trigger in database?)
-        $statement = $this->database->connect()->prepare('
+            // Add user_details
+            $statement = $connection->prepare('
             INSERT INTO user_details (name_, surname, pesel, date_of_birth, place_of_birth, address_id, phone_number, gender_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ');
+            ');
 
-        $statement->execute([
-            $user->getName(),
-            $user->getSurname(),
-            $user->getPesel(),
-            $user->getDateOfBirth(),
-            $user->getPlaceOfBirth(),
-            $this->getAddressId($user->getAddress()),
-            $user->getPhoneNumber(),
-            $this->getGenderId($user)
-        ]);
+            $statement->execute([
+                $user->getName(),
+                $user->getSurname(),
+                $user->getPesel(),
+                $user->getDateOfBirth(),
+                $user->getPlaceOfBirth(),
+                $this->getAddressId($user->getAddress(), $connection),
+                $user->getPhoneNumber(),
+                $this->getGenderId($user, $connection)
+            ]);
 
-
-        // Add user
-        $statement = $this->database->connect()->prepare('
+            // Add user
+            $statement = $connection->prepare('
             INSERT INTO user_ (user_details_id, user_type_id, password_, email, enabled_, created_at)
             VALUES (?, ?, ?, ?, ?, ?)
-        ');
+            ');
 
-        $statement->execute([
-            $this->getUserDetailsId($user),
-            $this->getUserTypeId($user),
-            $user->getPasswordHash(),
-            $user->getEmail(),
-            (int)$user->getEnabled(),
-            $date->format('Y-m-d')
-        ]);
+            $statement->execute([
+                $this->getUserDetailsId($user, $connection),
+                $this->getUserTypeId($user, $connection),
+                $user->getPasswordHash(),
+                $user->getEmail(),
+                (int)$user->getEnabled(),
+                $date->format('Y-m-d')
+            ]);
+
+            $connection->commit();
+
+        } catch (PDOException $e) {
+            $connection->rollBack();
+            throw $e;
+        }
     }
 
 
-    public function getAddressId(Address $address): int
+    public function getAddressId(Address $address, $connection): int
     {
-        $statement = $this->database->connect()->prepare('
+        $statement = $connection->prepare('
             SELECT * FROM address 
                      WHERE postal_code = :postal_code AND 
                         street = :street AND
@@ -128,9 +132,9 @@ class UserRepository extends Repository
         return $data['address_id'];
     }
 
-    public function getGenderId(User $user): int
+    public function getGenderId(User $user, $connection): int
     {
-        $statement = $this->database->connect()->prepare('
+        $statement = $connection->prepare('
             SELECT * FROM gender 
                      WHERE gender = :gender
         ');
@@ -142,9 +146,9 @@ class UserRepository extends Repository
         return $data['gender_id'];
     }
 
-    public function getUserDetailsId(User $user): int
+    public function getUserDetailsId(User $user, $connection): int
     {
-        $statement = $this->database->connect()->prepare('
+        $statement = $connection->prepare('
             SELECT * FROM user_details 
                      WHERE name_ = :name AND 
                         surname = :surname AND
@@ -166,11 +170,11 @@ class UserRepository extends Repository
         $statement->bindParam(':date_of_birth', $dateOfBirth, PDO::PARAM_STR);
         $placeOfBirth = $user->getPlaceOfBirth();
         $statement->bindParam(':place_of_birth', $placeOfBirth, PDO::PARAM_STR);
-        $addressId = $this->getAddressId($user->getAddress());
+        $addressId = $this->getAddressId($user->getAddress(), $connection);
         $statement->bindParam(':address_id', $addressId, PDO::PARAM_STR);
         $phoneNumber = $user->getPhoneNumber();
         $statement->bindParam(':phone_number', $phoneNumber, PDO::PARAM_STR);
-        $genderId = $this->getGenderId($user);
+        $genderId = $this->getGenderId($user, $connection);
         $statement->bindParam(':gender_id', $genderId, PDO::PARAM_STR);
 
         $statement->execute();
@@ -179,9 +183,9 @@ class UserRepository extends Repository
         return $data['user_details_id'];
     }
 
-    public function getUserTypeId(User $user): int
+    public function getUserTypeId(User $user, $connection): int
     {
-        $statement = $this->database->connect()->prepare('
+        $statement = $connection->prepare('
             SELECT * FROM user_type 
                      WHERE user_type = :user_type
         ');
