@@ -51,6 +51,9 @@ Under development - designing and coding individual sections in the dashboard.
 #### Grades panel - teacher view
 <img src="/screenshots/grades_teacher.PNG" alt="teacher grades" width="900"/>
 
+## Part of the database structure
+<img src="ediary_part_of_diagram.jpg" alt="database structure" height="800"/>
+
 <br>
 
 ### Sources
